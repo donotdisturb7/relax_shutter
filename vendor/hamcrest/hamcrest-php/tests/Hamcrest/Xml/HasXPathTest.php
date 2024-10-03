@@ -35,7 +35,7 @@ XML;
         self::$html = <<<HTML
 <html>
     <head>
-        <title>Home Page</title>
+        <title>Dashboard Page</title>
     </head>
     <body>
         <h1>Heading</h1>

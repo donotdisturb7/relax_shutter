@@ -35,7 +35,7 @@ class DNSCheckValidation implements EmailValidation
         'internal',
         'private',
         'corp',
-        'home',
+        'dashboard',
         'lan',
     ];
 

@@ -170,12 +170,12 @@ final class Builder
      * <code>
      * Array
      * (
-     *     [/home/sb/Money/Money.php] => Array
+     *     [/dashboard/sb/Money/Money.php] => Array
      *         (
      *             ...
      *         )
      *
-     *     [/home/sb/Money/MoneyBag.php] => Array
+     *     [/dashboard/sb/Money/MoneyBag.php] => Array
      *         (
      *             ...
      *         )

@@ -280,7 +280,7 @@ versioning scheme.
 
 Mockery 1.3 was the last version to support HHVM 3 and PHP 5. There is no support for HHVM 4+.
 
-## A new home for Mockery
+## A new dashboard for Mockery
 
 ⚠️️ Update your remotes! Mockery has transferred to a new location. While it was once
 at `padraic/mockery`, it is now at `mockery/mockery`. While your

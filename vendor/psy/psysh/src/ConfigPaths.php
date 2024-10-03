@@ -62,7 +62,7 @@ class ConfigPaths
     }
 
     /**
-     * Get the current home directory.
+     * Get the current dashboard directory.
      *
      * @return string|null
      */
@@ -121,10 +121,10 @@ class ConfigPaths
     }
 
     /**
-     * Get the current home config directory.
+     * Get the current dashboard config directory.
      *
-     * Returns the highest precedence home config directory which actually
-     * exists. If none of them exists, returns the highest precedence home
+     * Returns the highest precedence dashboard config directory which actually
+     * exists. If none of them exists, returns the highest precedence dashboard
      * config directory (`%APPDATA%/PsySH` on Windows, `~/.config/psysh`
      * everywhere else).
      *
@@ -264,8 +264,8 @@ class ConfigPaths
         }, $baseDirs);
 
         // Add ~/.psysh
-        if ($home = $this->getEnv('HOME')) {
-            $dirs[] = \strtr($home, '\\', '/').'/.psysh';
+        if ($dashboard = $this->getEnv('HOME')) {
+            $dirs[] = \strtr($dashboard, '\\', '/').'/.psysh';
         }
 
         // Add some Windows specific ones :)

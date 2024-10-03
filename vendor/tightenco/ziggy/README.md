@@ -186,9 +186,9 @@ route().current('venues.events.show', { venue: 6 });           // false
 #### Check if a route exists: `route().has()`
 
 ```js
-// Laravel app has only one named route, 'home'
+// Laravel app has only one named route, 'dashboard'
 
-route().has('home');   // true
+route().has('dashboard');   // true
 route().has('orders'); // false
 ```
 
@@ -313,7 +313,7 @@ const Ziggy = {
     url: 'https://ziggy.test',
     port: null,
     routes: {
-        home: {
+        dashboard: {
             uri: '/',
             methods: [ 'GET', 'HEAD'],
             domain: null,
@@ -337,7 +337,7 @@ You can import Ziggy like any other JavaScript library. Without the `@routes` Bl
 import { route } from '../../vendor/tightenco/ziggy';
 import { Ziggy } from './ziggy.js';
 
-route('home', undefined, undefined, Ziggy);
+route('dashboard', undefined, undefined, Ziggy);
 ```
 
 To simplify importing the `route()` function, you can create an alias to the vendor path:
@@ -375,7 +375,7 @@ createApp(App).use(ZiggyVue);
 Now you can use the `route()` function anywhere in your Vue components and templates:
 
 ```vue
-<a class="nav-link" :href="route('home')">Home</a>
+<a class="nav-link" :href="route('dashboard')">Dashboard</a>
 ```
 
 If you are not using the `@routes` Blade directive, import Ziggy's configuration too and pass it to `.use()`:
@@ -459,7 +459,7 @@ To set up route filtering, create a config file in your Laravel app at `config/z
 // config/ziggy.php
 
 return [
-    'only' => ['home', 'posts.index', 'posts.show'],
+    'only' => ['dashboard', 'posts.index', 'posts.show'],
 ];
 ```
 

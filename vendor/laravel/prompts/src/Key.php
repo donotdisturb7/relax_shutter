@@ -73,7 +73,7 @@ class Key
     const CTRL_H = "\x08";
 
     /**
-     * Home
+     * Dashboard
      */
     const CTRL_A = "\x01";
 

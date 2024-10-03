@@ -60,8 +60,8 @@ trait InstallsBladeStack
         copy(__DIR__.'/../../stubs/default/routes/auth.php', base_path('routes/auth.php'));
 
         // "Dashboard" Route...
-        $this->replaceInFile('/home', '/dashboard', resource_path('views/welcome.blade.php'));
-        $this->replaceInFile('Home', 'Dashboard', resource_path('views/welcome.blade.php'));
+        $this->replaceInFile('/dashboard', '/dashboard', resource_path('views/welcome.blade.php'));
+        $this->replaceInFile('Dashboard', 'Dashboard', resource_path('views/welcome.blade.php'));
 
         // Tailwind / Vite...
         copy(__DIR__.'/../../stubs/default/tailwind.config.js', base_path('tailwind.config.js'));
