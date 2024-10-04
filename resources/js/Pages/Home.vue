@@ -60,9 +60,10 @@ const mobileMenuOpen = ref(false)
             <a href="#" class="-m-1.5 p-1.5">
               <span class="sr-only">Your Company</span>
               <img class="h-8 w-auto" src="../../assets/img/logoRF.png" alt="logo RelaxShutter" />
+              <!-- <h1>hello</h1> -->
             </a>
 
-            
+
             <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="mobileMenuOpen = false">
               <span class="sr-only">Close menu</span>
               <XMarkIcon class="h-6 w-6" aria-hidden="true" />
