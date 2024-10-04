@@ -10,5 +10,5 @@ defineProps({
 
 <template>
     <Head title="Relax Shutter" />
-    Test
+    Home
 </template>
