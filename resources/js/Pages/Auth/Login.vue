@@ -137,7 +137,7 @@ const submit = () => {
           <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               class="mx-auto h-10 w-auto"
-              src="../../assets/img/logoRF.png"
+              src="resources/assets/img/logoRF.png"
               alt="Your Company"
             />
             <h2
