@@ -31,7 +31,6 @@ export default defineConfig({
     resolve: {
         alias: {
             '#': path.resolve(__dirname, 'public'), // Default alias for Vue files
-            'assets': path.resolve(__dirname, 'resources/assets'), // Alias for assets (images, etc.)
         },
     },
     build: {
