@@ -7,6 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
+
 defineProps({
   canResetPassword: {
     type: Boolean,
@@ -121,11 +122,13 @@ const submit = () => {
       >
         <path d="M50 0H100L50 100H0L50 0Z"></path>
       </svg>
+
       <img
         class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
         src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
         alt=""
       />
+      
     </div>
     <div
       class="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl"
@@ -135,11 +138,7 @@ const submit = () => {
           class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
         >
           <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              class="mx-auto h-10 w-auto"
-              src="resources/assets/img/logoRF.png"
-              alt="Your Company"
-            />
+            <img class="mx-auto h-10 w-auto" src="/assets/logoRF.png" />
             <h2
               class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
             >
