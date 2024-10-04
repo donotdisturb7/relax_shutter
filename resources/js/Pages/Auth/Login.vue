@@ -29,7 +29,7 @@ const submit = () => {
 };
 </script>
 
-<template>
+<!-- <template>
     <GuestLayout>
         <Head title="Log in" />
 
@@ -106,4 +106,97 @@ const submit = () => {
             </div>
         </form>
     </GuestLayout>
-</template>
+</template> -->
+
+<!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<template>
+    <!--
+      This example requires updating your template:
+  
+      ```
+      <html class="h-full bg-white">
+      <body class="h-full">
+      ```
+    -->
+    <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+      </div>
+  
+      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" @submit.prevent="submit">
+          <div>
+      
+            <div class="mt-2">
+                <InputLabel for="email" value="Email" />
+
+                <TextInput
+                    id="email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    v-model="form.email"
+                    required
+                    autofocus
+                    autocomplete="email"
+                />
+
+                <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+          </div>
+  
+          <div>
+            <div class="flex items-center justify-between">
+            </div>
+            <div class="mt-2">
+                <InputLabel for="password" value="Password" />
+                <TextInput
+                    id="password"
+                    type="password"
+                    class="mt-1 block w-full"
+                    v-model="form.password"
+                    required
+                    autocomplete="current-password"
+                />
+
+            </div>
+            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+          </div>
+  
+          <div>
+            <!-- <button type="submit" :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button> -->
+            <PrimaryButton
+                    class="ms-4"
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
+                    Log in
+                </PrimaryButton>
+          </div>
+        </form>
+   
+  
+        <p class="mt-10 text-center text-sm text-gray-500">
+          Not a member?
+          {{ ' ' }}
+          <a  class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
+        </p>
+      </div>
+    </div>
+  </template>
+  
+
