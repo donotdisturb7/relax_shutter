@@ -10,21 +10,17 @@ Route::get('/', [HomeController::class,'index'])->middleware(['auth', 'verified'
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class,'edit'])->middleware(['auth', 'verified'])->name('profile');
+    
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 use Illuminate\Support\Facades\Mail;
 
-Route::get('/send-test-email', function () {
-    Mail::raw('This is a test email using Mailpit!', function ($message) {
-        $message->to('renalddesire55@gmail.com')
-                ->subject('Test Email');
-    });
 
-    return 'Test email sent!';
-});
 
 
 require __DIR__.'/auth.php';

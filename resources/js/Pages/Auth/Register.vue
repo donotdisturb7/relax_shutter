@@ -21,84 +21,124 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Register" />
+  <div class="flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
+    <div
+      class="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0"
+    >
+      <svg
+        class="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block"
+        viewBox="0 0 100 100"
+        fill="currentColor"
+        preserveAspectRatio="none slice"
+      >
+        <path d="M50 0H100L50 100H0L50 0Z"></path>
+      </svg>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="nae" value="Name" />
+      <img
+        class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+        src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+        alt=""
+      />
+    </div>
 
+    <div
+      class="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl"
+    >
+      <div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
+        <div
+          class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
+        >
+          <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="/assets/logoRF.png" />
+            <h2
+              class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+            >
+              Créez votre compte.
+            </h2>
+          </div>
+
+          <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" @submit.prevent="submit">
+              <div>
+                <InputLabel for="name" value="Nom" />
                 <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
+                  id="name"
+                  type="text"
+                  class="mt-1 block w-full"
+                  v-model="form.name"
+                  required
+                  autofocus
+                  autocomplete="name"
                 />
-
                 <InputError class="mt-2" :message="form.errors.name" />
-            </div>
+              </div>
 
-            <div class="mt-4">
+              <div>
                 <InputLabel for="email" value="Email" />
-
                 <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
+                  id="email"
+                  type="email"
+                  class="mt-1 block w-full"
+                  v-model="form.email"
+                  required
+                  autocomplete="username"
                 />
-
                 <InputError class="mt-2" :message="form.errors.email" />
-            </div>
+              </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
+              <div>
+                <InputLabel for="password" value="Mot de passe" />
                 <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
+                  id="password"
+                  type="password"
+                  class="mt-1 block w-full"
+                  v-model="form.password"
+                  required
+                  autocomplete="new-password"
                 />
-
                 <InputError class="mt-2" :message="form.errors.password" />
-            </div>
+              </div>
 
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
+              <div>
+                <InputLabel for="password_confirmation" value="Confirmez le mot de passe" />
                 <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
+                  id="password_confirmation"
+                  type="password"
+                  class="mt-1 block w-full"
+                  v-model="form.password_confirmation"
+                  required
+                  autocomplete="new-password"
                 />
+                <InputError
+                  class="mt-2"
+                  :message="form.errors.password_confirmation"
+                />
+              </div>
 
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-
-            
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+              <div>
+                <PrimaryButton
+                  class="ms-4"
+                  :class="{ 'opacity-25': form.processing }"
+                  :disabled="form.processing"
                 >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                  S'inscrire
                 </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
+              </div>
+            </form>
+
+            <Link
+              :href="route('login')"
+              class="font-semibold leading-6 text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:focus:ring-offset-gray-800"
+            >
+              Déjà inscrit ?
+              <a
+                class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                > Connectez-vous ici.</a
+              >
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
