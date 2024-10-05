@@ -36,7 +36,7 @@ const submit = () => {
 
       <img
         class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
-        src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+        src="/assets/FontLogin.avif"
         alt=""
       />
     </div>
@@ -117,7 +117,7 @@ const submit = () => {
 
               <div>
                 <PrimaryButton
-                  class="ms-4"
+                  class=""
                   :class="{ 'opacity-25': form.processing }"
                   :disabled="form.processing"
                 >
