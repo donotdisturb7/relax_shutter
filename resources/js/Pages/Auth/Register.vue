@@ -259,6 +259,8 @@ export default {
         </div>
     </div>
 </template>
+
+
 <!-- 
 <template>
     <Head title="Inscription" />
