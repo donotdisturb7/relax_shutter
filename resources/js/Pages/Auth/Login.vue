@@ -6,7 +6,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
-
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 defineProps({
   canResetPassword: {
@@ -110,6 +110,8 @@ const submit = () => {
 </template> -->
 
 <template>
+
+
   <div class="flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
     <div
       class="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0"
@@ -142,7 +144,7 @@ const submit = () => {
             <h2
               class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
             >
-              Sign in to your account
+            Connectez-vous à votre compte.
             </h2>
           </div>
 
@@ -169,7 +171,7 @@ const submit = () => {
               <div>
                 <div class="flex items-center justify-between"></div>
                 <div class="mt-2">
-                  <InputLabel for="password" value="Password" />
+                  <InputLabel for="password" value="Mot de passe" />
                   <TextInput
                     id="password"
                     type="password"
@@ -185,7 +187,7 @@ const submit = () => {
                   :href="route('password.request')"
                   class="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
-                  Forgot your password?
+                Mot de passe oublié ?
                 </Link>
               </div>
 
@@ -195,7 +197,7 @@ const submit = () => {
                   :class="{ 'opacity-25': form.processing }"
                   :disabled="form.processing"
                 >
-                  Log in
+                  Se connecter
                 </PrimaryButton>
               </div>
             </form>
@@ -204,10 +206,10 @@ const submit = () => {
               :href="route('register')"
               class="font-semibold leading-6 text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:focus:ring-offset-gray-800"
             >
-              Not a member ?
+            Pas encore utilisateur ?
               <a
                 class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                >Register now</a
+                > Inscrivez-vous ici.</a
               >
             </Link>
           </div>
