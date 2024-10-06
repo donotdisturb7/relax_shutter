@@ -232,19 +232,19 @@ export default {
                                         </svg>
                                     </button>
                                 </div>
-                                <Link
-                                    v-if="canResetPassword"
-                                    :href="route('password.request')"
-                                    class="font-semibold text-indigo-600 hover:text-indigo-500"
-                                >
-                                    Mot de passe oublié ?
-                                </Link>
 
                                 <InputError
                                     class="mt-2"
                                     :message="form.errors.password"
                                 />
                             </div>
+                            <Link
+                                v-if="canResetPassword"
+                                :href="route('password.request')"
+                                class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                            >
+                                Mot de passe oublié ?
+                            </Link>
 
                             <div>
                                 <PrimaryButton
