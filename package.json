@@ -23,6 +23,7 @@
         "@vitejs/plugin-vue": "^5.1.4",
         "heroicons": "^2.1.5",
         "vue": "^3.5.10",
+        "vue-i18n": "^10.0.4",
         "vue-loader": "^17.3.1",
         "vue-picture-input": "^3.0.1"
     }

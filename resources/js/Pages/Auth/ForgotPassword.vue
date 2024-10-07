@@ -4,7 +4,7 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 
 defineProps({
     status: {
@@ -38,7 +38,7 @@ const submit = () => {
 
             <img
                 class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
-                src="/assets/IMG_0745.png"
+                src="/assets/IMG_0783.JPG"
                 alt=""
             />
         </div>
@@ -60,7 +60,6 @@ const submit = () => {
                             Réinitialisation du mot de passe
                         </h2>
                     </div>
-
                     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <div
                             class="mb-4 text-sm text-gray-600 dark:text-gray-400"
@@ -75,7 +74,6 @@ const submit = () => {
                         >
                             {{ status }}
                         </div>
-
                         <form class="space-y-6" @submit.prevent="submit">
                             <div>
                                 <InputLabel for="email" value="Email" />
@@ -105,10 +103,11 @@ const submit = () => {
                             </div>
                         </form>
 
-                        <div class="mt-6 text-center">
+                        <!-- Ajout du nouveau lien ici -->
+                        <div class="mt-4 text-center">
                             <Link
                                 :href="route('login')"
-                                class="font-semibold text-indigo-600 hover:text-indigo-500"
+                                class="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
                             >
                                 Retour à la page de connexion
                             </Link>
