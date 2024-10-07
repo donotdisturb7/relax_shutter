@@ -1,9 +1,6 @@
 <script setup>
 import { computed } from "vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import TextInput from "@/Components/TextInput.vue";
-import InputError from "@/Components/InputError.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -37,8 +34,9 @@ const verificationLinkSent = computed(
             >
                 <path d="M50 0H100L50 100H0L50 0Z"></path>
             </svg>
+            <!-- Modifié ici pour masquer l'image sur les petits écrans -->
             <img
-                class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+                class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full lg:block hidden"
                 src="/assets/IMG_0745.png"
                 alt=""
             />
