@@ -16,7 +16,7 @@ const props = defineProps({
     post: Object
 })
 
-const authUser = usePage().props.auth.user;
+
 
 
 const emit = defineEmits(['editClick', 'attachmentClick'])
@@ -110,7 +110,7 @@ function sendReaction() {
                 >
                     <ChatBubbleLeftRightIcon class="w-5 h-5"/>
                     <span class="mr-2">{{ post.num_of_comments }}</span>
-                    Comment
+                    Commenter
                 </DisclosureButton>
             </div>
 

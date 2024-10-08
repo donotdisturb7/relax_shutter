@@ -67,7 +67,7 @@ function search() {
                                             Profile
                                         </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            Se deconnecter
                                         </DropdownLink>
                                     </div>
                                 </template>

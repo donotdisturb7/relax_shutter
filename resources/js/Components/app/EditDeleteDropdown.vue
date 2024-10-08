@@ -93,7 +93,7 @@ function copyToClipboard() {
                                 class="mr-2 h-5 w-5"
                                 aria-hidden="true"
                             />
-                            Open Post
+                            Ouvrir la publication
                         </Link>
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
@@ -108,7 +108,7 @@ function copyToClipboard() {
                                 class="mr-2 h-5 w-5"
                                 aria-hidden="true"
                             />
-                            Copy Post URL
+                            Copier le lien de la publication
                         </button>
                     </MenuItem>
                     <MenuItem v-if="pinAllowed" v-slot="{ active }">
@@ -137,7 +137,7 @@ function copyToClipboard() {
                                 class="mr-2 h-5 w-5"
                                 aria-hidden="true"
                             />
-                            Edit
+                            Modifier 
                         </button>
                     </MenuItem>
                     <MenuItem v-if="deleteAllowed" v-slot="{ active }">
@@ -152,7 +152,7 @@ function copyToClipboard() {
                                 class="mr-2 h-5 w-5"
                                 aria-hidden="true"
                             />
-                            Delete
+                            Supprimer
                         </button>
                     </MenuItem>
                 </div>
