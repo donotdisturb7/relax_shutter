@@ -31,8 +31,7 @@ Route::get('/u/{user:username}', [ProfileController::class, 'index'])
 
 Route::middleware('auth')->group(function () {
 
-    // Groups
-   
+
 
 //    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

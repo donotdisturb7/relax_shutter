@@ -87,7 +87,7 @@ export default {
         const selected_language = ref(locale.value);
 
         const change_language = () => {
-            // Update the locale based on the selected value
+           
             locale.value = selected_language.value;
         };
 
