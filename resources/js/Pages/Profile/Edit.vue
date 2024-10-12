@@ -87,7 +87,6 @@ export default {
         const selected_language = ref(locale.value);
 
         const change_language = () => {
-           
             locale.value = selected_language.value;
         };
 
@@ -108,7 +107,6 @@ export default {
                 Profile Settings
             </h2>
         </template>
-
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
@@ -186,3 +184,14 @@ export default {
         </div>
     </AuthenticatedLayout>
 </template>
+
+
+
+
+
+
+
+
+
+
+

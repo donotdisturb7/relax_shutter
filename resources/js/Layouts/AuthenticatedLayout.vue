@@ -1,20 +1,20 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link, router, usePage } from '@inertiajs/vue3';
+import { onMounted, ref } from "vue";
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import Dropdown from "@/Components/Dropdown.vue";
+import DropdownLink from "@/Components/DropdownLink.vue";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
+import { Link, router, usePage } from "@inertiajs/vue3";
 import TextInput from "@/Components/TextInput.vue";
-import { MoonIcon } from '@heroicons/vue/24/solid'
+import { MoonIcon } from "@heroicons/vue/24/solid";
 
 const showingNavigationDropdown = ref(false);
-const keywords = ref(usePage().props.search || '');
+const keywords = ref(usePage().props.search || "");
 
 const authUser = usePage().props.auth.user;
 
 function search() {
-    router.get(route('search', encodeURIComponent(keywords.value)))
+    router.get(route("search", encodeURIComponent(keywords.value)));
 }
 </script>
 
@@ -28,11 +28,14 @@ function search() {
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
                             <Link :href="route('home')">
-                                <img class="block h-9 w-auto fill-current text-gray-800 " src="assets/logoRF.png" alt="">
+                                <img
+                                    class="block h-9 w-auto fill-current text-gray-800"
+                                    src="assets/logoRF.png"
+                                    alt=""
+                                />
                             </Link>
                         </div>
                     </div>
-
 
                     <div class="hidden sm:flex sm:items-center">
                         <!-- Settings Dropdown -->
@@ -62,11 +65,23 @@ function search() {
                                 </template>
 
                                 <template #content>
-                                    <div class=" right-0 mt-2 w-48 rounded-md shadow-lg bg-white  z-50">
-                                        <DropdownLink :href="route('profile', {username: authUser.username })">
+                                    <div
+                                        class="right-0 mt-2 w-48 rounded-md shadow-lg bg-white z-50"
+                                    >
+                                        <DropdownLink
+                                            :href="
+                                                route('profile', {
+                                                    username: authUser.username,
+                                                })
+                                            "
+                                        >
                                             Profile
                                         </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
+                                        <DropdownLink
+                                            :href="route('logout')"
+                                            method="post"
+                                            as="button"
+                                        >
                                             Log Out
                                         </DropdownLink>
                                     </div>
@@ -81,33 +96,53 @@ function search() {
                     </div>
 
                     <!-- Hamburger -->
-                  
                 </div>
             </div>
 
             <!-- Responsive Navigation Menu -->
-            <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
+            <div
+                :class="{
+                    block: showingNavigationDropdown,
+                    hidden: !showingNavigationDropdown,
+                }"
+                class="sm:hidden"
+            >
                 <!-- Responsive Settings Options -->
-                <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                <div
+                    class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600"
+                >
                     <template v-if="authUser">
                         <div class="px-4">
-                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">
+                            <div
+                                class="font-medium text-base text-gray-800 dark:text-gray-200"
+                            >
                                 {{ authUser.name }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">{{ authUser.email }}</div>
+                            <div class="font-medium text-sm text-gray-500">
+                                {{ authUser.email }}
+                            </div>
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile', {username: authUser.username })"> Profile
+                            <ResponsiveNavLink
+                                :href="
+                                    route('profile', {
+                                        username: authUser.username,
+                                    })
+                                "
+                            >
+                                Profile
                             </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                            <ResponsiveNavLink
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                            >
                                 Log Out
                             </ResponsiveNavLink>
                         </div>
                     </template>
-                    <template>
-                        Login button
-                    </template>
+                    <template> Login button </template>
                 </div>
             </div>
         </div>
@@ -115,13 +150,13 @@ function search() {
         <!-- Page Heading -->
         <header class="bg-white dark:bg-gray-800 shadow" v-if="$slots.header">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <slot name="header"/>
+                <slot name="header" />
             </div>
         </header>
 
         <!-- Page Content -->
         <main class="flex-1 overflow-hidden">
-            <slot/>
+            <slot />
         </main>
     </div>
 </template>
