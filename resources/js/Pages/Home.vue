@@ -192,12 +192,12 @@ const followingsCount = computed(() => props.followings.length);
                 class="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 :style="{
                     backgroundImage: `url('/assets/IMG_8063.JPG')`,
-                    filter: 'blur(8px)',
+                    filter: 'blur(5px)',
                 }"
             ></div>
 
             <!-- Content overlay -->
-            <div class="relative z-10 bg-white bg-opacity-90 min-h-screen">
+            <div class="relative z-10 bg-white bg-opacity-50 min-h-screen">
                 <div class="container mx-auto px-4 py-12">
                     <h1 class="text-5xl font-bold mb-8 text-center text-gray-900">
                         Bienvenue sur Relax Shutter
