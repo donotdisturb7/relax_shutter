@@ -332,7 +332,7 @@ function matchLink() {
                     multiple
                     @change="onAttachmentChoose"
                 />
-                <PaperClipIcon class="h-10 w-10 mx-auto" />
+                <PaperClipIcon class="h-10 w-10 mx-auto text-white" />
                 <span class="block text-white"
                     >Selectionner une photo ou video</span
                 >
