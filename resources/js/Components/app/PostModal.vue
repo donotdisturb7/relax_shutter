@@ -244,7 +244,7 @@ function matchLink() {
         v-model="show"
         @hide="closeModal"
     >
-        <div class="p-4">
+        <div class="p-4 bg-black">
             <PostUserHeader
                 :post="post"
                 :show-time="false"
@@ -323,7 +323,7 @@ function matchLink() {
             </div>
 
             <label
-                class="relative w-full mb-4 border-2 border-dashed text-center p-3 block"
+                class="relative w-full mb-4 border-2 rounded-lg border-dashed text-center p-3 block"
                 :class="showExtensionsText ? 'border-amber-500' : ''"
             >
                 <input
@@ -332,8 +332,8 @@ function matchLink() {
                     multiple
                     @change="onAttachmentChoose"
                 />
-                <PaperClipIcon class="h-6 w-6 mx-auto" />
-                <span class="block text-gray-500"
+                <PaperClipIcon class="h-10 w-10 mx-auto text-white" />
+                <span class="block text-white"
                     >Selectionner une photo ou video</span
                 >
             </label>
@@ -351,13 +351,13 @@ function matchLink() {
             <UrlPreview v-if="form.preview_url" v-model="form.preview" />
 
             <div class="flex justify-between items-center py-4">
-                <div class="flex gap-4 items-center">
+                <div class="w-full">
                     <button
                         @click="submit"
                         type="button"
-                        class="text-xs bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-3"
+                        class="text-s bg-sky-500 hover:bg-sky-600 text-white rounded-lg h-7 w-full"
                     >
-                        {{ post.id ? "Update" : "Post" }}
+                        {{ post.id ? "Update" : "Publié" }}
                     </button>
                 </div>
             </div>
