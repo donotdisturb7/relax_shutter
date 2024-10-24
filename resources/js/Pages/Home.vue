@@ -7,6 +7,8 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import UserListItem from "@/Components/app/UserListItem.vue";
 
 
+
+
 const props = defineProps({
     posts: Object,
     followings: Array,
@@ -69,5 +71,6 @@ const handlePostCreated = () => {
                 
             </div>
         </div>
+
     </AuthenticatedLayout>
 </template>

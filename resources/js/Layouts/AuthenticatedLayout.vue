@@ -38,7 +38,7 @@ function search() {
                     <div class="hidden sm:flex sm:items-center">
                         <!-- Settings Dropdown -->
                         <div class="ms-3 relative">
-                            <Dropdown v-if="authUser" align="right" width="48">
+                            <Dropdown v-if="authUser" >
                                 <template #trigger>
                                     <span class="inline-flex rounded-md">
                                         <button

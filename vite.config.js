@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import Components from 'unplugin-vue-components/vite'; // Import the plugin
 import path from 'path';
 
 export default defineConfig({
@@ -14,8 +15,6 @@ export default defineConfig({
                 transformAssetUrls: {
                     base: null,
                     includeAbsolute: false,
-                    // Configure Vue to handle asset URLs correctly
-                    // for images and other assets within components
                     tags: {
                         img: ['src'],
                         image: ['xlink:href', 'href'],
@@ -27,16 +26,24 @@ export default defineConfig({
                 },
             },
         }),
+        Components({ // Add the auto-registration plugin
+            dirs: ['resources/js/components/app', 'resources/js/components/ui'], // Directories to search for components
+            extensions: ['vue'], // Only look for .vue files
+            deep: true, // Recursively search directories
+        }),
     ],
     resolve: {
         alias: {
-            '#': path.resolve(__dirname, 'public'), // Default alias for Vue files
+            '#': path.resolve(__dirname, 'public'),
+            '@': path.resolve(__dirname, 'resources/js'),
+            '@app': path.resolve(__dirname, 'resources/js/components/app'),
+            '@ui': path.resolve(__dirname, 'resources/js/components/ui'),
         },
     },
     build: {
         rollupOptions: {
             output: {
-                assetFileNames: 'assets/[name].[hash][extname]', // Custom asset filename handling
+                assetFileNames: 'assets/[name].[hash][extname]',
             },
         },
     },
