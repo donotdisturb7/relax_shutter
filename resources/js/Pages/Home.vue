@@ -4,6 +4,8 @@ import { Head, Link } from "@inertiajs/vue3";
 import CreatePost from "@/Components/app/CreatePost.vue";
 import PostList from "@/Components/app/PostList.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import UserListItem from "@/Components/app/UserListItem.vue";
+
 
 const props = defineProps({
     posts: Object,
@@ -42,6 +44,7 @@ const handlePostCreated = () => {
                         >
                     </div>
                     <PostList :posts="posts.data" class="mt-8" />
+                    <UserListItem></UserListItem>
                 </div>
 
                 <div class="bg-white shadow rounded-lg p-6">
@@ -63,6 +66,7 @@ const handlePostCreated = () => {
                         </li>
                     </ul>
                 </div>
+                
             </div>
         </div>
     </AuthenticatedLayout>

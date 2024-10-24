@@ -20,9 +20,6 @@ const allPosts = ref({
     next: null
 })
 
-const props = defineProps({
-    posts: Array
-})
 
 watch(() => page.props.posts, () => {
     if (page.props.posts) {

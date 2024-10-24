@@ -1,11 +1,10 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
-import TextInput from "@/Components/TextInput.vue";
+import TextInput from "@/Components/ui/TextInput.vue";
 import { MoonIcon } from '@heroicons/vue/24/solid'
 
 const showingNavigationDropdown = ref(false);
@@ -32,6 +31,8 @@ function search() {
                             </Link>
                         </div>
                     </div>
+                    <TextInput v-model="keywords" placeholder="Search on the website" class="w-full"
+                    @keyup.enter="search"/>
 
 
                     <div class="hidden sm:flex sm:items-center">

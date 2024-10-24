@@ -14,7 +14,7 @@ class SearchController extends Controller
     public function search(Request $request, string $search = null)
     {
         if (!$search)
-            return redirect(route('dashboard'));
+            return redirect(route('home'));
 
         $users = User::query()
             ->where('name', 'like', "%$search%")
@@ -33,7 +33,7 @@ class SearchController extends Controller
         }
 
 
-        return inertia('Search', [
+        return inertia('SearchPage', [
             'posts' => $posts,
             'search' => $search,
             'users' => UserResource::collection($users),

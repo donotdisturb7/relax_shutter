@@ -2,7 +2,7 @@
 import {ChatBubbleLeftEllipsisIcon, HandThumbUpIcon} from "@heroicons/vue/24/outline/index.js";
 import ReadMoreReadLess from "@/Components/app/ReadMoreReadLess.vue";
 
-import InputTextarea from "@/Components/InputTextarea.vue";
+import InputTextarea from "@/Components/ui/InputTextarea.vue";
 import EditDeleteDropdown from "@/Components/app/EditDeleteDropdown.vue";
 import {usePage, Link} from "@inertiajs/vue3";
 import {ref} from "vue";

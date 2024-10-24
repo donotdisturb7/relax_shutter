@@ -1,5 +1,5 @@
 <script setup>
-import TextInput from "@/Components/TextInput.vue";
+import TextInput from "@/Components/ui/TextInput.vue";
 import UserListItem from "@/Components/app/UserListItem.vue";
 import {ref} from "vue";
 

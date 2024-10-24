@@ -2,8 +2,9 @@
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import PrimaryButton from '@/Components/ui/PrimaryButton.vue';
+import Button from '@/components/Button.vue'
+import TextInput from '@/Components/ui/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -49,6 +50,7 @@ const submit = () => {
                 >
                     Confirm
                 </PrimaryButton>
+                
             </div>
         </form>
     </GuestLayout>

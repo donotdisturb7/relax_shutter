@@ -39,7 +39,7 @@ if (!attachmentExtensions.length) {
 const attachmentFiles = ref([]);
 const attachmentErrors = ref([]);
 const formErrors = ref({});
-const aiButtonLoading = ref(false);
+
 
 const form = useForm({
     body: "",

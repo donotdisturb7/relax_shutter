@@ -1,9 +1,10 @@
 <script setup>
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import PrimaryButton from "@/Components/ui/PrimaryButton.vue";
+import TextInput from "@/Components/ui/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
+
 
 defineProps({
     canResetPassword: {
@@ -151,6 +152,7 @@ export default {
                                 >
                                     Se connecter
                                 </PrimaryButton>
+                            
                             </div>
                         </form>
 
