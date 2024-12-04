@@ -1,0 +1,26 @@
+@layer base {
+     :root {
+        /* Couleurs principales */
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --secondary: #64748b;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        /* Couleurs de fond */
+        --bg-primary: #ffffff;
+        --bg-secondary: #f3f4f6;
+        /* Texte */
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        /* Bordures */
+        --border-color: #e5e7eb;
+        --border-radius: 0.5rem;
+        /* Espacements */
+        --spacing-xs: 0.25rem;
+        --spacing-sm: 0.5rem;
+        --spacing-md: 1rem;
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
+    }
+}

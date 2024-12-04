@@ -34,11 +34,11 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '#': path.resolve(__dirname, 'public'),
-            '@': path.resolve(__dirname, 'resources/js'),
-            '@app': path.resolve(__dirname, 'resources/js/components/app'),
-            '@ui': path.resolve(__dirname, 'resources/js/components/ui'),
-        },
+            '@': '/resources/js',
+            '@components': '/resources/js/Components',
+            '@styles': '/resources/js/styles',
+            '@utils': '/resources/js/utils'
+        }
     },
     build: {
         rollupOptions: {

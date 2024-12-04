@@ -9,27 +9,34 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function follow(Request $request, User $user)
+    public function toggleFollow(User $user)
     {
-        $data = $request->validate([
-            'follow' => ['boolean']
-        ]);
-        if ($data['follow']) {
-            $message = 'Vous vous êtes abonné à "'.$user->name.'"';
-            Follower::create([
-                'user_id' => $user->id,
-                'follower_id' => Auth::id()
-            ]);
-        } else {
-            $message = 'Vous vous êtes desabonner à"'.$user->name.'"';
-            Follower::query()
-                ->where('user_id', $user->id)
-                ->where('follower_id', Auth::id())
-                ->delete();
+        $currentUser = auth()->user();
+        
+        if ($currentUser->id === $user->id) {
+            return response()->json(['error' => 'Vous ne pouvez pas vous suivre vous-même'], 400);
         }
 
-       
+        $existingFollow = Follower::where('user_id', $user->id)
+            ->where('follower_id', $currentUser->id)
+            ->first();
 
-        return back()->with('success', $message);
+        if ($existingFollow) {
+            $existingFollow->delete();
+            return response()->json([
+                'following' => false,
+                'message' => 'Désabonné avec succès'
+            ]);
+        }
+
+        Follower::create([
+            'user_id' => $user->id,
+            'follower_id' => $currentUser->id
+        ]);
+
+        return response()->json([
+            'following' => true,
+            'message' => 'Abonné avec succès'
+        ]);
     }
 }

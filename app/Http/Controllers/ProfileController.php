@@ -21,50 +21,34 @@ use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
-    public function index(Request $request, User $user)
+    public function index(User $user)
     {
-        $isCurrentUserFollower = false;
-        if (!Auth::guest()) {
-            $isCurrentUserFollower = Follower::where('user_id', $user->id)
-                ->where('follower_id', Auth::id())
-                ->exists();
-        }
-        $followerCount = Follower::where('user_id', $user->id)->count();
-    
-        $posts = Post::postsForTimeline(Auth::id(), false)
-            ->leftJoin('users AS u', 'posts.user_id', '=', 'u.id') 
-            ->where('posts.user_id', $user->id) // On filtre uniquement pour les posts de l'utilisateur courant
-            ->orderBy('posts.created_at', 'desc')
-            ->paginate(10);
-    
-        $posts = PostResource::collection($posts);
-        if ($request->wantsJson()) {
-            return $posts;
-        }
-    
-        $followers = $user->followers;
-        $followings = $user->followings;
-    
-        $photos = PostAttachment::query()
-            ->where('mime', 'like', 'image/%')
-            ->where('created_by', $user->id)
-            ->latest()
-            ->get();
-    
-        return Inertia::render('Profile/View', [
-            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
-            'status' => session('status'),
-            'success' => session('success'),
-            'isCurrentUserFollower' => $isCurrentUserFollower,
-            'followerCount' => $followerCount,
-            'user' => new UserResource($user),
-            'posts' => $posts,
-            'followers' => UserResource::collection($followers),
-            'followings' => UserResource::collection($followings),
-            'photos' => PostAttachmentResource::collection($photos)
+        $currentUser = auth()->user();
+        
+        return Inertia::render('Profile/Index', [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'username' => $user->username,
+                'avatar_path' => $user->avatar_path ?? 'default-avatar.png',
+                'cover_path' => $user->cover_path ?? 'default-cover.jpg',
+                'created_at' => $user->created_at,
+            ],
+            'stats' => [
+                'posts_count' => $user->posts()->count(),
+                'followers_count' => $user->followers()->count(),
+                'following_count' => $user->following()->count(),
+            ],
+            'posts' => PostResource::collection(
+                $user->posts()->with(['user', 'attachments'])->latest()->paginate(10)
+            ),
+            'isCurrentUserFollower' => $currentUser->following()
+                ->where('user_id', $user->id)
+                ->exists(),
+            'isOwnProfile' => $currentUser->id === $user->id,
         ]);
     }
-    
+
 
     /**
      * Met à jour les informations du profil de l'utilisateur.

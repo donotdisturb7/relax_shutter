@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update-images', [ProfileController::class, 'updateImage'])
         ->name('profile.updateImages');
 
-    Route::post('/user/follow/{user}', [UserController::class, 'follow'])->name('user.follow');
+    Route::post('/user/{user}/follow', [UserController::class, 'toggleFollow'])->name('user.follow');
 
     // Posts
     Route::prefix('/post')->group(function () {

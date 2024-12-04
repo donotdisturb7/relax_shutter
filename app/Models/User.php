@@ -9,13 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -52,21 +50,27 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function getSlugOptions(): SlugOptions
+    // Relation avec les posts
+    public function posts(): HasMany
     {
-        return SlugOptions::create()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('username')
-            ->doNotGenerateSlugsOnUpdate();
+        return $this->hasMany(Post::class);
     }
 
+    // Relation avec les followers (utilisateurs qui nous suivent)
     public function followers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 
-    public function followings(): BelongsToMany
+    // Relation avec les utilisateurs que nous suivons
+    public function following(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+    // Méthode pour vérifier si l'utilisateur suit un autre utilisateur
+    public function isFollowing(User $user): bool
+    {
+        return $this->following()->where('user_id', $user->id)->exists();
     }
 }

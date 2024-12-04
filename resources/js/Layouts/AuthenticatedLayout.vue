@@ -6,7 +6,16 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import TextInput from "@/Components/ui/TextInput.vue";
 import { MoonIcon } from '@heroicons/vue/24/solid'
+import LeftSidebar from '@/Components/app/LeftSidebar.vue';
+import RightSidebar from '@/Components/app/RightSidebar.vue';
 
+
+defineProps({
+    followings: {
+        type: Array,
+        default: () => [],
+    }
+});
 const showingNavigationDropdown = ref(false);
 const keywords = ref(usePage().props.search || '');
 
@@ -18,9 +27,9 @@ function search() {
 </script>
 
 <template>
-    <div class="">
-        <div>
-            <!-- Primary Navigation Menu -->
+    <div class="min-h-screen bg-gray-100">
+        <!-- Navbar existant -->
+        <nav class="bg-white border-b border-gray-100 fixed w-full z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between gap-2 h-16">
                     <div class="flex mr-2">
@@ -81,48 +90,25 @@ function search() {
                         </div>
                     </div>
 
-                    <!-- Hamburger -->
+        
                   
                 </div>
             </div>
+        </nav>
 
-            <!-- Responsive Navigation Menu -->
-            <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-                <!-- Responsive Settings Options -->
-                <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-                    <template v-if="authUser">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-                                {{ authUser.name }}
-                            </div>
-                            <div class="font-medium text-sm text-gray-500">{{ authUser.email }}</div>
-                        </div>
 
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile', {username: authUser.username })"> Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </template>
-                    <template>
-                        Login button
-                    </template>
-                </div>
-            </div>
+        <div class="flex">
+
+            <LeftSidebar />
+
+            
+            <main class="flex-1 ml-64 mr-64 pt-20">
+                <slot />
+            </main>
+
+            
+            <RightSidebar :followings="followings" />
         </div>
-
-        <!-- Page Heading -->
-        <header class="bg-white dark:bg-gray-800 shadow" v-if="$slots.header">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <slot name="header"/>
-            </div>
-        </header>
-
-        <!-- Page Content -->
-        <main class="flex-1 overflow-hidden">
-            <slot/>
-        </main>
     </div>
 </template>
+

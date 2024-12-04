@@ -5,20 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reaction extends Model
 {
     use HasFactory;
 
-    const UPDATED_AT = null;
+    protected $fillable = [
+        'user_id',
+        'object_id',
+        'object_type',
+        'type'
+    ];
 
-    protected $fillable = ['object_id', 'object_type', 'user_id', 'type'];
-
-    /**
-     * Get the parent object model (post or comment).
-     */
     public function object(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
