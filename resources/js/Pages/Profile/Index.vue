@@ -6,7 +6,7 @@
       <!-- Cover Photo -->
       <div class="relative h-64 w-full rounded-lg overflow-hidden mb-16">
         <img
-          :src="user.cover_path ? `/storage/${user.cover_path}` : '/images/default-cover.jpg'"
+          :src="user.cover_path ? `/storage/${user.cover_path}` : '/images/default-cover.png'"
           class="w-full h-full object-cover"
           alt="Cover photo"
         />
@@ -15,10 +15,13 @@
         <div class="absolute -bottom-12 left-8">
           <div class="relative">
             <img
-              :src="user.avatar_path ? `/storage/${user.avatar_path}` : '/images/default-avatar.png'"
+              :src="user.avatar_path && user.avatar_path.length > 0 
+                    ? `/storage/${user.avatar_path}` 
+                    : '/images/default-avatar.png'"
               class="w-32 h-32 rounded-full border-4 border-white object-cover"
               :alt="user.name"
             />
+            <div class="text-sm text-gray-500">Debug: {{ user.avatar_path }}</div>
             <button
               v-if="isOwnProfile"
               @click="openAvatarUpload"
@@ -96,19 +99,19 @@
     </div>
 
     <!-- Modals -->
-    <Modal ref="avatarModal" title="Modifier la photo de profil">
+    <ImageModal ref="avatarModal" title="Modifier la photo de profil">
       <ImageUpload
         @uploaded="handleAvatarUpload"
         :aspect-ratio="1"
       />
-    </Modal>
+    </ImageModal>
 
-    <Modal ref="coverModal" title="Modifier la photo de couverture">
+    <ImageModal ref="coverModal" title="Modifier la photo de couverture">
       <ImageUpload
         @uploaded="handleCoverUpload"
         :aspect-ratio="2.5"
       />
-    </Modal>
+    </ImageModal>
   </AuthenticatedLayout>
 </template>
 
@@ -117,7 +120,7 @@ import { ref } from 'vue'
 import { Head } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import PostCard from '@/Components/app/PostCard.vue'
-import Modal from '@/Components/app/BaseModal.vue'
+import ImageModal from '@/Components/app/ImageModal.vue'
 import ImageUpload from '@/Components/app/ImageUpload.vue'
 import { PencilIcon } from '@heroicons/vue/24/solid'
 import axios from 'axios'

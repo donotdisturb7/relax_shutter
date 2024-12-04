@@ -2,18 +2,14 @@
     <div class="bg-white rounded-lg shadow-sm mb-4 p-4">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center">
-                <Link :href="`/profile/${post.user.id}`">
-                    <img 
-                        :src="post.user.avatar_path ? `/storage/${post.user.avatar_path}` : '/images/default-avatar.png'"
-                        :alt="post.user.name"
-                        class="w-10 h-10 rounded-full object-cover"
-                    />
+            <div class="flex items-center space-x-3">
+                <Link :href="route('profile', post.user.username)">
+                    <Avatar :user="post.user" size="md" />
                 </Link>
-                <div class="ml-3">
+                <div>
                     <Link 
-                        :href="`/profile/${post.user.id}`"
-                        class="font-semibold text-gray-900 hover:underline"
+                        :href="route('profile', post.user.username)"
+                        class="font-semibold hover:underline"
                     >
                         {{ post.user.name }}
                     </Link>
@@ -164,6 +160,7 @@ import {
     DocumentIcon
 } from '@heroicons/vue/24/outline'
 import axios from 'axios'
+import Avatar from '@/Components/app/Avatar.vue'
 
 const props = defineProps({
     post: {

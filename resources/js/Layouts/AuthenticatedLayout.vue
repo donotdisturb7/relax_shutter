@@ -1,11 +1,9 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import TextInput from "@/Components/ui/TextInput.vue";
-import { MoonIcon } from '@heroicons/vue/24/solid'
 import LeftSidebar from '@/Components/app/LeftSidebar.vue';
 import RightSidebar from '@/Components/app/RightSidebar.vue';
 
@@ -20,6 +18,10 @@ const showingNavigationDropdown = ref(false);
 const keywords = ref(usePage().props.search || '');
 
 const authUser = usePage().props.auth.user;
+
+const isProfileRoute = computed(() => {
+    return route().current('profile');
+});
 
 function search() {
     router.get(route('search', encodeURIComponent(keywords.value)))
@@ -40,7 +42,7 @@ function search() {
                             </Link>
                         </div>
                     </div>
-                    <TextInput v-model="keywords" placeholder="Search on the website" class="w-full"
+                    <TextInput v-model="keywords" placeholder="Rechercher un utilisateur ou une photo" class="w-full"
                     @keyup.enter="search"/>
 
 
@@ -54,7 +56,15 @@ function search() {
                                             type="button"
                                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                         >
-                                            {{ authUser.name }}
+                                            <div class="flex items-center">
+                                                <img 
+                                                    :src="$page.props.auth.user.avatar_path 
+                                                        ? `/storage/${$page.props.auth.user.avatar_path}` 
+                                                        : '/images/default-avatar.png'"
+                                                    class="w-8 h-8 rounded-full object-cover"
+                                                    :alt="$page.props.auth.user.name"
+                                                />
+                                            </div>
                                             <svg
                                                 class="ms-2 -me-0.5 h-4 w-4"
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -102,12 +112,18 @@ function search() {
             <LeftSidebar />
 
             
-            <main class="flex-1 ml-64 mr-64 pt-20">
+            <main :class="{ 
+                'flex-1 ml-64 mr-64 pt-20': !isProfileRoute, 
+                'flex-1 ml-64 pt-20': isProfileRoute 
+            }">
                 <slot />
             </main>
 
             
-            <RightSidebar :followings="followings" />
+            <RightSidebar 
+                v-if="!isProfileRoute" 
+                :followings="followings" 
+            />
         </div>
     </div>
 </template>

@@ -10,17 +10,14 @@
             <ul class="space-y-3">
                 <li v-for="user in followings" :key="user.id">
                     <Link 
-                        :href="`/profile/${user.id}`"
-                        class="flex items-center p-2 hover:bg-gray-50 rounded-lg transition-colors"
+                        v-if="user.username"
+                        :href="route('profile', user.username)"
+                        class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg"
                     >
-                        <img 
-                            :src="user.avatar || '/default-avatar.png'" 
-                            :alt="user.name"
-                            class="w-10 h-10 rounded-full object-cover"
-                        >
-                        <div class="ml-3">
-                            <p class="font-medium text-sm">{{ user.name }}</p>
-                            <p class="text-xs text-gray-500">@{{ user.username }}</p>
+                        <Avatar :user="user" size="md" />
+                        <div>
+                            <div class="font-medium">{{ user.name }}</div>
+                            <div class="text-sm text-gray-500">@{{ user.username }}</div>
                         </div>
                     </Link>
                 </li>
@@ -31,11 +28,13 @@
 
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import Avatar from '@/Components/app/Avatar.vue';
 
 defineProps({
     followings: {
         type: Array,
         default: () => [],
     }
+    
 });
 </script> 

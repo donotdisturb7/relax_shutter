@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -49,6 +50,24 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected $appends = ['avatar_url', 'cover_url'];
+
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar_path) {
+            return Storage::url($this->avatar_path);
+        }
+        return 'images/default-avatar.png';
+    }
+
+    public function getCoverUrlAttribute()
+    {
+        if ($this->cover_path) {
+            return Storage::url($this->cover_path);
+        }
+        return 'images/default-cover.jpg';
+    }
 
     // Relation avec les posts
     public function posts(): HasMany

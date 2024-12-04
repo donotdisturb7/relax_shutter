@@ -240,7 +240,7 @@ function matchLink() {
 
 <template>
     <BaseModal
-        :title="post.id ? 'Update Post' : 'Relax shutter !'"
+        :title="post.id ? 'Modifier le post' : 'Créer un post'"
         v-model="show"
         @hide="closeModal"
     >
@@ -248,24 +248,41 @@ function matchLink() {
             <PostUserHeader
                 :post="post"
                 :show-time="false"
-                class="mb-4 dark:text-gray-100"
+                class="mb-4"
             />
 
+            <!-- Message d'avertissement pour les extensions -->
             <div
                 v-if="showExtensionsText"
-                class="border-l-4 border-amber-500 py-2 px-3 bg-amber-100 mt-3 text-gray-800"
+                class="border-l-4 border-amber-500 py-2 px-3 bg-amber-100 mt-3 text-gray-800 rounded"
             >
-                Files must be one of the following extensions <br />
+                Extensions de fichiers autorisées : <br />
                 <small>{{ attachmentExtensions.join(", ") }}</small>
             </div>
 
+            <!-- Message d'erreur pour les pièces jointes -->
             <div
                 v-if="formErrors.attachments"
-                class="border-l-4 border-red-500 py-2 px-3 bg-red-100 mt-3 text-gray-800"
+                class="border-l-4 border-red-500 py-2 px-3 bg-red-100 mt-3 text-gray-800 rounded"
             >
                 {{ formErrors.attachments }}
             </div>
 
+            <!-- Zone de texte -->
+            <textarea
+                class="w-full px-3 py-2 border rounded-lg resize-none mt-4 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                :class="formErrors.body ? 'border-red-500' : ''"
+                rows="3"
+                placeholder="Partagez vos pensées..."
+                v-model="form.body"
+                @input="onInputChange"
+            ></textarea>
+            <small class="text-red-500">{{ formErrors.body }}</small>
+
+            <!-- Prévisualisation URL -->
+            <UrlPreview v-if="form.preview_url" v-model="form.preview" />
+
+            <!-- Zone des pièces jointes -->
             <div
                 class="grid gap-3 my-3"
                 :class="[
@@ -276,24 +293,24 @@ function matchLink() {
             >
                 <div v-for="(myFile, ind) of computedAttachments" :key="ind">
                     <div
-                        class="group aspect-square bg-blue-100 flex flex-col items-center justify-center text-gray-500 relative border-2"
+                        class="group aspect-square bg-gray-50 flex flex-col items-center justify-center text-gray-500 relative border rounded-lg overflow-hidden"
                         :class="attachmentErrors[ind] ? 'border-red-500' : ''"
                     >
                         <div
                             v-if="myFile.deleted"
-                            class="absolute z-10 left-0 bottom-0 right-0 py-2 px-3 text-sm bg-black text-white flex justify-between items-center"
+                            class="absolute z-10 left-0 bottom-0 right-0 py-2 px-3 text-sm bg-black/75 text-white flex justify-between items-center"
                         >
-                            To be deleted
+                            À supprimer
 
                             <ArrowUturnLeftIcon
                                 @click="undoDelete(myFile)"
-                                class="w-4 h-4 cursor-pointer"
+                                class="w-4 h-4 cursor-pointer hover:text-sky-400"
                             />
                         </div>
 
                         <button
                             @click="removeFile(myFile)"
-                            class="absolute z-20 right-3 top-3 w-7 h-7 flex items-center justify-center bg-black/30 text-white rounded-full hover:bg-black/40"
+                            class="absolute z-20 right-2 top-2 w-7 h-7 flex items-center justify-center bg-black/50 text-white rounded-full hover:bg-black/75 transition-colors"
                         >
                             <XMarkIcon class="h-5 w-5" />
                         </button>
@@ -310,20 +327,18 @@ function matchLink() {
                             :class="myFile.deleted ? 'opacity-50' : ''"
                         >
                             <PaperClipIcon class="w-10 h-10 mb-3" />
-
                             <small class="text-center">
                                 {{ (myFile.file || myFile).name }}
                             </small>
                         </div>
                     </div>
-                    <small class="text-red-500">{{
-                        attachmentErrors[ind]
-                    }}</small>
+                    <small class="text-red-500">{{ attachmentErrors[ind] }}</small>
                 </div>
             </div>
 
+            <!-- Zone de dépôt de fichiers -->
             <label
-                class="relative w-full mb-4 border-2 border-dashed text-center p-3 block"
+                class="relative w-full mb-4 border-2 border-dashed rounded-lg text-center p-4 block hover:border-sky-500 hover:bg-sky-50 transition-colors cursor-pointer"
                 :class="showExtensionsText ? 'border-amber-500' : ''"
             >
                 <input
@@ -332,34 +347,19 @@ function matchLink() {
                     multiple
                     @change="onAttachmentChoose"
                 />
-                <PaperClipIcon class="h-6 w-6 mx-auto" />
-                <span class="block text-gray-500"
-                    >Selectionner une photo ou video</span
-                >
+                <PaperClipIcon class="h-6 w-6 mx-auto text-gray-400" />
+                <span class="block text-gray-500 mt-2">Ajouter des photos ou fichiers</span>
             </label>
 
-            <textarea
-                class="w-full px-3 py-2 border rounded-lg resize-none"
-                :class="formErrors.body ? 'border-red-500' : ''"
-                rows="3"
-                placeholder="Partage ton week-end !"
-                v-model="form.body"
-                @input="onInputChange"
-            ></textarea>
-            <small class="text-red-500">{{ formErrors.body }}</small>
-
-            <UrlPreview v-if="form.preview_url" v-model="form.preview" />
-
-            <div class="flex justify-between items-center py-4">
-                <div class="flex gap-4 items-center">
-                    <button
-                        @click="submit"
-                        type="button"
-                        class="text-xs bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-3"
-                    >
-                        {{ post.id ? "Update" : "Post" }}
-                    </button>
-                </div>
+            <!-- Boutons d'action -->
+            <div class="flex justify-end items-center pt-4">
+                <button
+                    @click="submit"
+                    type="button"
+                    class="bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-4 font-medium transition-colors"
+                >
+                    {{ post.id ? "Mettre à jour" : "Publier" }}
+                </button>
             </div>
         </div>
     </BaseModal>

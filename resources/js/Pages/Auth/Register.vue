@@ -4,17 +4,56 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/ui/PrimaryButton.vue";
 import TextInput from "@/Components/ui/TextInput.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
+import { ref } from 'vue';
+import { PencilIcon } from '@heroicons/vue/24/solid';
+
+const avatarPreview = ref(null);
+const coverPreview = ref(null);
+const avatarInput = ref(null);
+const coverInput = ref(null);
 
 const form = useForm({
     name: "",
+    username: "",
     email: "",
     password: "",
     password_confirmation: "",
+    avatar: null,
+    cover: null,
 });
+
+const onAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        form.avatar = file;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            avatarPreview.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+const onCoverChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        form.cover = file;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            coverPreview.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
 
 const submit = () => {
     form.post(route("register"), {
-        onFinish: () => form.reset("password", "password_confirmation"),
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset();
+            avatarPreview.value = null;
+            coverPreview.value = null;
+        },
     });
 };
 </script>
@@ -76,6 +115,19 @@ export default {
                                     class="mt-2"
                                     :message="form.errors.name"
                                 />
+                            </div>
+
+                            <div>
+                                <InputLabel for="username" value="Nom d'utilisateur" />
+                                <TextInput
+                                    id="username"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    v-model="form.username"
+                                    required
+                                    autocomplete="username"
+                                />
+                                <InputError class="mt-2" :message="form.errors.username" />
                             </div>
 
                             <div>
@@ -200,6 +252,62 @@ export default {
                                     class="mt-2"
                                     :message="form.errors.password_confirmation"
                                 />
+                            </div>
+
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    Photo de profil
+                                </label>
+                                <div class="mt-1 flex items-center space-x-4">
+                                    <div class="relative">
+                                        <img 
+                                            :src="avatarPreview || '/images/default-avatar.png'" 
+                                            class="w-16 h-16 rounded-full object-cover"
+                                        />
+                                        <input
+                                            type="file"
+                                            class="hidden"
+                                            ref="avatarInput"
+                                            accept="image/*"
+                                            @change="onAvatarChange"
+                                        />
+                                        <button
+                                            type="button"
+                                            @click="$refs.avatarInput.click()"
+                                            class="absolute bottom-0 right-0 bg-white rounded-full p-1 shadow-lg hover:bg-gray-100"
+                                        >
+                                            <PencilIcon class="w-4 h-4 text-gray-600" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">
+                                    Photo de couverture
+                                </label>
+                                <div class="mt-1">
+                                    <div class="relative">
+                                        <img 
+                                            :src="coverPreview || '/default-cover.png'" 
+                                            class="w-full h-32 object-cover rounded-lg"
+                                        />
+                                        <input
+                                            type="file"
+                                            class="hidden"
+                                            ref="coverInput"
+                                            accept="image/*"
+                                            @change="onCoverChange"
+                                        />
+                                        <button
+                                            type="button"
+                                            @click="$refs.coverInput.click()"
+                                            class="absolute bottom-2 right-2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100"
+                                        >
+                                            <PencilIcon class="w-4 h-4 text-gray-600" />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
                             <div>

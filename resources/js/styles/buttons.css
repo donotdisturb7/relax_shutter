@@ -4,16 +4,16 @@
      }
      /* Variantes de boutons */
      .btn-primary {
-         @apply bg-[var(--primary)] text-white hover: bg-[var(--primary-dark)];
+         @apply bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)];
      }
      .btn-secondary {
-         @apply bg-[var(--secondary)] text-white hover: opacity-90;
+         @apply bg-[var(--secondary)] text-white hover:opacity-90;
      }
      .btn-danger {
-         @apply bg-[var(--danger)] text-white hover: opacity-88;
+         @apply bg-[var(--danger)] text-white hover:opacity-100;
      }
      .btn-outline {
-         @apply border border-gray-300 text-gray-700 hover: bg-gray-50;
+         @apply border border-gray-300 text-gray-700 hover:bg-gray-50;
      }
      /* Tailles de boutons */
      .btn-sm {

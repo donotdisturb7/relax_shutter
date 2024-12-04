@@ -30,8 +30,8 @@ class ProfileController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
-                'avatar_path' => $user->avatar_path ?? 'default-avatar.png',
-                'cover_path' => $user->cover_path ?? 'default-cover.jpg',
+                'avatar_path' => $user->avatar_path ?? 'public/images/default-avatar.png',
+                'cover_path' => $user->cover_path ?? 'public/images/default-cover.jpg',
                 'created_at' => $user->created_at,
             ],
             'stats' => [

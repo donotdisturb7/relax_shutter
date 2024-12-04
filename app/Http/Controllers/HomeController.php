@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $user = auth()->user();
         
@@ -30,7 +30,13 @@ class HomeController extends Controller
 
         return Inertia::render('Home', [
             'posts' => PostResource::collection($posts),
-            'followings' => UserResource::collection($user->following),
+            'followings' => UserResource::collection($user->following()->select([
+                'users.id',
+                'name',
+                'username',
+                'avatar_path',
+                'cover_path'
+            ])->get()),
         ]);
     }
 }
