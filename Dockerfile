@@ -32,7 +32,7 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Copy package files
 COPY package*.json ./
-RUN npm ci
+RUN npm i
 
 # Copy the rest of the application
 COPY . .
