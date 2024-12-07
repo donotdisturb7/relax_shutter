@@ -8,9 +8,11 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip \
-    nodejs \
-    npm
+    unzip
+
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -24,19 +26,25 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www
 
-# Copy existing application directory
+# Copy composer files first to leverage Docker cache
+COPY composer.* ./
+RUN composer install --no-dev --optimize-autoloader --no-scripts
+
+# Copy package files
+COPY package*.json ./
+RUN npm ci
+
+# Copy the rest of the application
 COPY . .
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader
-RUN npm install
+# Build assets
 RUN npm run build
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www
 
-# Expose port 8000
+# Expose port
 EXPOSE 8000
 
 # Start command
-CMD php artisan serve --host=0.0.0.0 --port=$PORT 
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
