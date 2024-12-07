@@ -50,6 +50,19 @@ const handleCoverUpload = async (file) => {
   }
 }
 
+const handleAvatarUpload = async (file) => {
+  const formData = new FormData()
+  formData.append('avatar', file)
+  formData.append('type', 'avatar')
+  
+  try {
+    await axios.post(route('profile.updateImages'), formData)
+    window.location.reload()
+  } catch (error) {
+    alert('Le fichier est trop lourd', error)
+  }
+}
+
 const refreshPosts = () => {
   window.location.reload()
 }
@@ -60,11 +73,11 @@ const refreshPosts = () => {
 
 <template>
   <AuthenticatedLayout>
-    <Head :title="`Profil de ${user.name}`" />
+    <Head :title="`${user.name}`" />
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
       <!-- Cover Photo -->
-      <div class="relative h-64 w-full rounded-lg overflow-hidden mb-16 bg-primary-black image.png dark:bg-slate-800">
+      <div class="relative h-64 w-full rounded-lg  mb-16 bg-primary-black image.png dark:bg-slate-800">
         <img
           :src="user.cover_path ? `/storage/${user.cover_path}` : '/images/default-cover.png'"
           class="w-full h-full object-cover"
@@ -81,7 +94,7 @@ const refreshPosts = () => {
               class="w-32 h-32 rounded-full border-4 border-white object-cover"
               :alt="user.name"
             />
-            <div class="text-sm text-gray-500">Debug: {{ user.avatar_path }}</div>
+            
             <button
               v-if="isOwnProfile"
               @click="openAvatarUpload"
@@ -96,7 +109,7 @@ const refreshPosts = () => {
         <button
           v-if="isOwnProfile"
           @click="openCoverUpload"
-          class="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+          class="absolute bottom-4 right-4 px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
         >
           Modifier la couverture
         </button>
@@ -106,7 +119,7 @@ const refreshPosts = () => {
       <div class="px-8">
         <div class="flex justify-between items-start">
           <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-black">{{ user.name }}</h1>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h1>
             <p class="text-gray-600 dark:text-gray-400">@{{ user.username }}</p>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Membre depuis {{ new Date(user.created_at).toLocaleDateString() }}
@@ -118,7 +131,7 @@ const refreshPosts = () => {
 
               <Link
                 :href="route('profile.edit')"
-                class="px-6 py-2 rounded-full font-medium bg-black-200 hover:bg-gray-300 text-gray-700"
+                class="px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
               >
                 Modifier le profil
               </Link>
@@ -176,6 +189,13 @@ const refreshPosts = () => {
       <ImageUpload
         @uploaded="handleCoverUpload"
         :aspect-ratio="2.5"
+      />
+    </ImageModal>
+
+    <ImageModal ref="avatarModal" title="Modifier la photo de profil">
+      <ImageUpload
+        @uploaded="handleAvatarUpload"
+        :aspect-ratio="1"
       />
     </ImageModal>
   </AuthenticatedLayout>
