@@ -1,9 +1,8 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
-import TextInput from "@/Components/ui/TextInput.vue";
 import LeftSidebar from '@/Components/app/LeftSidebar.vue';
-import RightSidebar from '@/Components/app/RightSidebar.vue';
+
 import Navbar from '@/Components/app/Navbar.vue';
 
 
@@ -13,10 +12,10 @@ defineProps({
         default: () => [],
     }
 });
-const showingNavigationDropdown = ref(false);
+
 const keywords = ref(usePage().props.search || '');
 
-const authUser = usePage().props.auth.user;
+
 
 const isProfileRoute = computed(() => {
     return route().current('profile');
@@ -45,12 +44,6 @@ function search() {
                 <slot />
             </main>
 
-            
-            <RightSidebar 
-                v-if="!isProfileRoute" 
-                :followings="followings" 
-            />
-        
     </div>
 </template>
 

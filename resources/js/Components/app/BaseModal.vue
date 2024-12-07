@@ -61,7 +61,7 @@ function closeModal() {
                             leave-to="opacity-0 scale-95"
                         >
                             <DialogPanel
-                                class="w-full max-w-md transform overflow-hidden rounded bg-white dark:bg-slate-900 text-left align-middle shadow-xl transition-all"
+                                class="w-full max-w-md transform overflow-hidden rounded bg-primary-black  dark:bg-slate-900 text-left align-middle shadow-xl transition-all"
                             >
                                 <DialogTitle v-if="title" as="h3"
                                              class="flex items-center justify-between py-3 px-4 font-medium bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100"

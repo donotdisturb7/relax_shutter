@@ -64,7 +64,7 @@ const refreshPosts = () => {
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
       <!-- Cover Photo -->
-      <div class="relative h-64 w-full rounded-lg overflow-hidden mb-16 bg-white dark:bg-slate-800">
+      <div class="relative h-64 w-full rounded-lg overflow-hidden mb-16 bg-primary-black image.png dark:bg-slate-800">
         <img
           :src="user.cover_path ? `/storage/${user.cover_path}` : '/images/default-cover.png'"
           class="w-full h-full object-cover"

@@ -3,7 +3,6 @@ import { computed, ref, watch } from "vue";
 import {
     XMarkIcon,
     PaperClipIcon,
-    BookmarkIcon,
     ArrowUturnLeftIcon,
 } from "@heroicons/vue/24/solid";
 import PostUserHeader from "@/Components/app/PostUserHeader.vue";

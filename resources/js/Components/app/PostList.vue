@@ -1,7 +1,7 @@
 <script setup>
-import PostItem from "@/Components/app/PostItem.vue";
+
 import PostModal from "@/Components/app/PostModal.vue";
-import {onMounted, onUpdated, ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {usePage} from "@inertiajs/vue3";
 import AttachmentPreviewModal from "@/Components/app/AttachmentPreviewModal.vue";
 import axiosClient from "@/axiosClient.js";
@@ -75,10 +75,6 @@ onMounted(() => {
 
 <template>
     <div class="overflow-auto">
-        <PostItem v-for="post of allPosts.data" :key="post.id" :post="post"
-                  @editClick="openEditModal"
-                  @attachmentClick="openAttachmentPreviewModal"
-        />
 
         <div ref="loadMoreIntersect"></div>
 

@@ -1,5 +1,99 @@
+<script setup>
+import { ref, computed } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import { Link } from '@inertiajs/vue3'
+import { 
+    EllipsisHorizontalIcon,
+    HeartIcon,
+    ChatBubbleLeftIcon,
+    DocumentIcon
+} from '@heroicons/vue/24/outline'
+import axios from 'axios'
+import Avatar from '@/Components/app/Avatar.vue'
+
+const props = defineProps({
+    post: {
+        type: Object,
+        required: true
+    }
+})
+
+const emit = defineEmits(['deleted'])
+
+const showOptions = ref(false)
+const showComments = ref(false)
+const newComment = ref('')
+const hasReacted = ref(props.post.has_reacted)
+
+const isOwner = computed(() => {
+    return props.post.user.id === usePage().props.auth.user.id
+})
+
+const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+}
+
+const isImage = (mime) => {
+    return mime.startsWith('image/')
+}
+
+const toggleReaction = async () => {
+    try {
+        const response = await axios.post(route('post.reaction', props.post.id))
+        hasReacted.value = response.data.current_user_has_reaction
+        props.post.reactions_count = response.data.num_of_reactions
+    } catch (error) {
+        console.error('Erreur lors de la réaction:', error)
+    }
+}
+
+const submitComment = async () => {
+    if (!newComment.value.trim()) return
+
+    try {
+        const response = await axios.post(route('post.comment.create', props.post.id), {
+            comment: newComment.value
+        })
+        props.post.comments.unshift(response.data)
+        props.post.comments_count++
+        newComment.value = ''
+    } catch (error) {
+        console.error('Erreur lors de l\'ajout du commentaire:', error)
+    }
+}
+
+const deletePost = async () => {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce post ?')) return
+
+    try {
+        await axios.delete(route('posts.destroy', props.post.id))
+        emit('deleted')
+    } catch (error) {
+        console.error('Erreur lors de la suppression:', error)
+    }
+}
+
+const editPost = () => {
+    // À implémenter : redirection vers la page d'édition ou ouverture d'un modal
+}
+
+const downloadFile = (attachment) => {
+    window.location.href = route('posts.attachment.download', attachment.id)
+}
+
+const openLightbox = (attachment) => {
+    // À implémenter : ouverture d'une lightbox pour les images
+}
+</script> 
+
 <template>
-    <div class="bg-white rounded-lg shadow-sm mb-4 p-4">
+    <div class="bg-primary-black  rounded-lg shadow-sm mb-4 p-4">
         <!-- Header -->
         <div class="flex items-center justify-between mb-4">
             <div class="flex items-center space-x-3">
@@ -28,7 +122,7 @@
                     <EllipsisHorizontalIcon class="w-6 h-6 text-gray-500" />
                 </button>
                 
-                <div v-if="showOptions" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                <div v-if="showOptions" class="absolute right-0 mt-2 w-48 bg-primary-black rounded-md shadow-lg z-50">
                     <div class="py-1">
                         <button 
                             @click="editPost"
@@ -149,96 +243,3 @@
     </div>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
-import { usePage } from '@inertiajs/vue3'
-import { Link } from '@inertiajs/vue3'
-import { 
-    EllipsisHorizontalIcon,
-    HeartIcon,
-    ChatBubbleLeftIcon,
-    DocumentIcon
-} from '@heroicons/vue/24/outline'
-import axios from 'axios'
-import Avatar from '@/Components/app/Avatar.vue'
-
-const props = defineProps({
-    post: {
-        type: Object,
-        required: true
-    }
-})
-
-const emit = defineEmits(['deleted'])
-
-const showOptions = ref(false)
-const showComments = ref(false)
-const newComment = ref('')
-const hasReacted = ref(props.post.has_reacted)
-
-const isOwner = computed(() => {
-    return props.post.user.id === usePage().props.auth.user.id
-})
-
-const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('fr-FR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    })
-}
-
-const isImage = (mime) => {
-    return mime.startsWith('image/')
-}
-
-const toggleReaction = async () => {
-    try {
-        const response = await axios.post(route('post.reaction', props.post.id))
-        hasReacted.value = response.data.current_user_has_reaction
-        props.post.reactions_count = response.data.num_of_reactions
-    } catch (error) {
-        console.error('Erreur lors de la réaction:', error)
-    }
-}
-
-const submitComment = async () => {
-    if (!newComment.value.trim()) return
-
-    try {
-        const response = await axios.post(route('post.comment.create', props.post.id), {
-            comment: newComment.value
-        })
-        props.post.comments.unshift(response.data)
-        props.post.comments_count++
-        newComment.value = ''
-    } catch (error) {
-        console.error('Erreur lors de l\'ajout du commentaire:', error)
-    }
-}
-
-const deletePost = async () => {
-    if (!confirm('Êtes-vous sûr de vouloir supprimer ce post ?')) return
-
-    try {
-        await axios.delete(route('posts.destroy', props.post.id))
-        emit('deleted')
-    } catch (error) {
-        console.error('Erreur lors de la suppression:', error)
-    }
-}
-
-const editPost = () => {
-    // À implémenter : redirection vers la page d'édition ou ouverture d'un modal
-}
-
-const downloadFile = (attachment) => {
-    window.location.href = route('posts.attachment.download', attachment.id)
-}
-
-const openLightbox = (attachment) => {
-    // À implémenter : ouverture d'une lightbox pour les images
-}
-</script> 

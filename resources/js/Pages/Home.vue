@@ -24,16 +24,16 @@ const handlePostCreated = () => {
 <template>
     <Head title="Relax Shutter" />
     <AuthenticatedLayout :followings="followings">
-        <div class="max-w-3xl mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto px-4 py-8 bg-primary-black text-white">
             <!-- Create Post Section -->
-            <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="bg-primary-black rounded-lg shadow-sm p-4 mb-6 border border-gray-800">
                 <CreatePost @post-created="handlePostCreated" />
             </div>
 
-            <!-- Success Alert -->
+            <!-- Success Alert - keeping this visible but darker -->
             <div
                 v-if="showAlert"
-                class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6"
+                class="bg-primary-black border border-green-800 text-green-400 px-4 py-3 rounded relative mb-6"
                 role="alert"
             >
                 <strong class="font-bold">Succès!</strong>
@@ -43,10 +43,10 @@ const handlePostCreated = () => {
             </div>
 
             <!-- Posts List -->
-            <div v-if="posts.data.length === 0" class="text-center py-8 text-gray-500">
+            <div v-if="posts.data.length === 0" class="text-center py-8 text-gray-400">
                 Aucune publication pour le moment
             </div>
-            <div v-else class="space-y-6">
+            <div v-else class="space-y-6 bg-primary-black">
                 <PostCard
                     v-for="post in posts.data"
                     :key="post.id"

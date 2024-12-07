@@ -18,7 +18,7 @@ const isUserDefined = computed(() => {
 </script>
 
 <template>
-  <div v-if="isUserDefined" class="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+  <div v-if="isUserDefined" class="py-8 px-8 max-w-sm mx-auto bg-primary-black  rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
     <img  :src="user.avatar_url" class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" alt="User avatar">
     <div class="text-center space-y-2 sm:text-left">
       <div class="space-y-0.5">

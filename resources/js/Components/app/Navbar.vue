@@ -13,7 +13,7 @@ function search() {
 </script>
 
 <template>
-    <nav class="bg-white fixed w-full z-10 px-4">
+    <nav class="bg-primary-black fixed w-full z-10 px-4">
         <div class="max-w-7xl mx-auto flex items-center justify-between h-16">
             <!-- Logo -->
             <div class="flex-shrink-0">

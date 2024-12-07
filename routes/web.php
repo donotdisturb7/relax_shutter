@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DiscoverController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/user/{user}/follow', [UserController::class, 'toggleFollow'])->name('user.follow');
+
+    Route::get('/discover', [DiscoverController::class, 'index'])
+        ->middleware(['auth', 'verified'])
+        ->name('discover');
 
     // Posts
     Route::prefix('/post')->group(function () {

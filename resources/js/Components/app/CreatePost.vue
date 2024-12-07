@@ -1,7 +1,7 @@
 <script setup>
 
 import {ref} from "vue";
-import {useForm, usePage} from "@inertiajs/vue3";
+import {usePage} from "@inertiajs/vue3";
 import PostModal from "@/Components/app/PostModal.vue";
 
 const authUser = usePage().props.auth.user;
@@ -22,7 +22,7 @@ function showCreatePostModal() {
 </script>
 
 <template>
-    <div class="p-4 bg-white  rounded-lg border  mb-3">
+    <div class="p-4 bg-primary-black   rounded-lg border  mb-3">
 
         <div @click="showCreatePostModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
            Creer un nouveau post

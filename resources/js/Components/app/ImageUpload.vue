@@ -1,55 +1,3 @@
-<template>
-  <div class="p-4">
-    <div
-      class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center"
-      @dragover.prevent
-      @drop.prevent="handleDrop"
-    >
-      <input
-        type="file"
-        ref="fileInput"
-        class="hidden"
-        @change="handleFileSelect"
-        accept="image/*"
-      />
-      
-      <div v-if="!selectedFile">
-        <div class="text-gray-600 mb-4">
-          Glissez une image ici ou
-          <button
-            @click="$refs.fileInput.click()"
-            class="text-blue-500 hover:text-blue-600"
-          >
-            parcourez
-          </button>
-        </div>
-      </div>
-      
-      <div v-else>
-        <img
-          :src="preview"
-          class="max-w-full max-h-64 mx-auto mb-4"
-          alt="Preview"
-        />
-        <div class="flex justify-center space-x-4">
-          <button
-            @click="upload"
-            class="bg-blue-500 text-white px-4 py-2 rounded-md"
-          >
-            Enregistrer
-          </button>
-          <button
-            @click="reset"
-            class="bg-gray-500 text-white px-4 py-2 rounded-md"
-          >
-            Annuler
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 
@@ -102,3 +50,56 @@ const reset = () => {
   }
 }
 </script> 
+
+<template>
+  <div class="p-4">
+    <div
+      class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center"
+      @dragover.prevent
+      @drop.prevent="handleDrop"
+    >
+      <input
+        type="file"
+        ref="fileInput"
+        class="hidden"
+        @change="handleFileSelect"
+        accept="image/*"
+      />
+      
+      <div v-if="!selectedFile">
+        <div class="text-gray-600 mb-4">
+          Glissez une image ici ou
+          <button
+            @click="$refs.fileInput.click()"
+            class="text-blue-500 hover:text-blue-600"
+          >
+            parcourez
+          </button>
+        </div>
+      </div>
+      
+      <div v-else>
+        <img
+          :src="preview"
+          class="max-w-full max-h-64 mx-auto mb-4"
+          alt="Preview"
+        />
+        <div class="flex justify-center space-x-4">
+          <button
+            @click="upload"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md"
+          >
+            Enregistrer
+          </button>
+          <button
+            @click="reset"
+            class="bg-gray-500 text-white px-4 py-2 rounded-md"
+          >
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
