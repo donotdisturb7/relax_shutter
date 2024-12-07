@@ -10,7 +10,6 @@ import PostUserHeader from "@/Components/app/PostUserHeader.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { isImage } from "@/helpers.js";
 import axiosClient from "@/axiosClient.js";
-import UrlPreview from "@/Components/app/UrlPreview.vue";
 import BaseModal from "@/Components/app/BaseModal.vue";
 
 const props = defineProps({
@@ -279,8 +278,6 @@ function matchLink() {
             ></textarea>
             <small class="text-red-500">{{ formErrors.body }}</small>
 
-            <!-- Prévisualisation URL -->
-            <UrlPreview v-if="form.preview_url" v-model="form.preview" />
 
             <!-- Zone des pièces jointes -->
             <div

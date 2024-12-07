@@ -1,128 +1,137 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import DeleteUserForm from "./Partials/DeleteUserForm.vue";
-import UpdatePasswordForm from "./Partials/UpdatePasswordForm.vue";
-import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm.vue";
-import { Head } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { ref } from 'vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import ImageModal from '@/Components/app/ImageModal.vue'
+import ImageUpload from '@/Components/app/ImageUpload.vue'
 
-defineProps({
-    mustVerifyEmail: {
-        type: Boolean,
-    },
-    status: {
-        type: String,
-    },
-});
+const props = defineProps({
+  user: Object,
+})
 
-const activeTab = ref("profile");
+const avatarModal = ref(null)
+
+const form = useForm({
+  name: props.user.name,
+  username: props.user.username,
+  is_private: props.user.is_private || false,
+})
+
+const submit = () => {
+  form.patch(route('profile.update'), {
+    onSuccess: () => {
+      //Redirection vers la page du profil après la mise à jour
+      window.location.href = route('profile', props.user.username)
+    },
+  })
+}
+
+const openAvatarUpload = () => {
+  avatarModal.value.open()
+}
+
+const handleAvatarUpload = async (file) => {
+  const formData = new FormData()
+  formData.append('avatar', file)
+  formData.append('type', 'avatar')
+  
+  try {
+    await axios.post(route('profile.updateImages'), formData)
+    window.location.reload()
+  } catch (error) {
+    console.error('Erreur lors du téléchargement de l\'avatar:', error)
+  }
+}
 </script>
-<script>
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
 
-export default {
-    setup() {
-        const { locale, t } = useI18n();
-        const selected_language = ref(locale.value);
-
-        const change_language = () => {
-
-            locale.value = selected_language.value;
-        };
-
-        return {
-            selected_language,
-            change_language,
-        };
-    },
-};
-</script>
 <template>
-    <Head title="Profile" />
-    <AuthenticatedLayout>
-        <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
+  <AuthenticatedLayout>
+    <Head title="Modifier le profil" />
+
+    <div class="max-w-2xl mx-auto sm:px-6 lg:px-8 py-8">
+      <div class="bg-white dark:bg-slate-800 shadow rounded-lg p-6">
+        <h1 class="text-2xl font-bold mb-6">Modifier le profil</h1>
+
+        <form @submit.prevent="submit" class="space-y-6">
+          <!-- Avatar -->
+          <div class="flex items-center space-x-4">
+            <img
+              :src="user.avatar_path ? `/storage/${user.avatar_path}` : '/images/default-avatar.png'"
+              class="w-20 h-20 rounded-full object-cover"
+              :alt="user.name"
+            />
+            <button
+              type="button"
+              @click="openAvatarUpload"
+              class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm"
             >
-                Profile Settings
-            </h2>
-        </template>
+              Changer la photo
+            </button>
+          </div>
 
+          <!-- Nom d'affichage -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Nom d'affichage
+            </label>
+            <input
+              v-model="form.name"
+              type="text"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                <!-- Navigation Tabs -->
-                <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-                    <ul class="flex flex-wrap -mb-px" role="tablist">
-                        <li class="mr-2">
-                            <button
-                                @click="activeTab = 'profile'"
-                                :class="[
-                                    'inline-block p-4 rounded-t-lg',
-                                    activeTab === 'profile'
-                                        ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500'
-                                        : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
-                                ]"
-                            >
-                                Profile Info
-                            </button>
-                        </li>
-                        <li class="mr-2">
-                            <button
-                                @click="activeTab = 'password'"
-                                :class="[
-                                    'inline-block p-4 rounded-t-lg',
-                                    activeTab === 'password'
-                                        ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500'
-                                        : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
-                                ]"
-                            >
-                                Password
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                @click="activeTab = 'delete'"
-                                :class="[
-                                    'inline-block p-4 rounded-t-lg',
-                                    activeTab === 'delete'
-                                        ? 'text-red-600 border-b-2 border-red-600 dark:text-red-500 dark:border-red-500'
-                                        : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300',
-                                ]"
-                            >
-                                Delete Account
-                            </button>
-                        </li>
-                    </ul>
-                </div>
+          <!-- Username
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Nom d'utilisateur
+            </label>
+            <input
+              v-model="form.username"
+              type="text"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div> -->
 
-                <!-- Tab Content -->
-                <div
-                    v-show="activeTab === 'profile'"
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800"
-                >
-                    <UpdateProfileInformationForm
-                        :must-verify-email="mustVerifyEmail"
-                        :status="status"
-                        class="max-w-xl"
-                    />
-                </div>
+          <!-- Compte privé/public -->
+          <div class="flex items-center space-x-2">
+            <input
+              v-model="form.is_private"
+              type="checkbox"
+              class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Compte privé
+            </label>
+          </div>
 
-                <div
-                    v-show="activeTab === 'password'"
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800"
-                >
-                    <UpdatePasswordForm class="max-w-xl" />
-                </div>
+          <!-- Boutons -->
+          <div class="flex justify-end space-x-3">
+            <Link
+              :href="route('profile', user.username)"
+              class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Annuler
+            </Link>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-blue-500 text-white rounded-md text-sm font-medium hover:bg-blue-600"
+              :disabled="form.processing"
+            >
+              Enregistrer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-                <div
-                    v-show="activeTab === 'delete'"
-                    class="bg-white p-4 shadow sm:rounded-lg sm:p-8 dark:bg-gray-800"
-                >
-                    <DeleteUserForm class="max-w-xl" />
-                </div>
-            </div>
-        </div>
-    </AuthenticatedLayout>
+    <!-- Modal pour l'upload d'avatar -->
+    <ImageModal ref="avatarModal" title="Modifier la photo de profil">
+      <ImageUpload
+        @uploaded="handleAvatarUpload"
+        :aspect-ratio="1"
+      />
+    </ImageModal>
+  </AuthenticatedLayout>
 </template>
+

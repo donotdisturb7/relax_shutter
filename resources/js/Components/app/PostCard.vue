@@ -196,7 +196,7 @@ const isImage = (mime) => {
 
 const toggleReaction = async () => {
     try {
-        const response = await axios.post(route('posts.reaction', props.post.id))
+        const response = await axios.post(route('post.reaction', props.post.id))
         hasReacted.value = response.data.current_user_has_reaction
         props.post.reactions_count = response.data.num_of_reactions
     } catch (error) {
@@ -208,7 +208,7 @@ const submitComment = async () => {
     if (!newComment.value.trim()) return
 
     try {
-        const response = await axios.post(route('posts.comments.store', props.post.id), {
+        const response = await axios.post(route('post.comment.create', props.post.id), {
             comment: newComment.value
         })
         props.post.comments.unshift(response.data)

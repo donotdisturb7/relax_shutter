@@ -1,1 +1,0 @@
-import{o,f as l,b as s,r}from"./app-CmL_A-M6.js";const a={class:""},_={__name:"GuestLayout",setup(n){return(t,e)=>(o(),l("div",null,[e[0]||(e[0]=s("div",null,null,-1)),s("div",a,[r(t.$slots,"default")])]))}};export{_};

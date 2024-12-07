@@ -1,5 +1,5 @@
 <template>
-    <div class="w-64 bg-white shadow-lg h-screen fixed right-0 top-0 pt-20">
+    <div class="w-64 bg-white h-screen fixed right-0 top-0 pt-20">
         <div class="px-4">
             <h2 class="text-xl font-semibold mb-4">Personnes suivies</h2>
             

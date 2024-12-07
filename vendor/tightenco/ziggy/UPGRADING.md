@@ -4,7 +4,7 @@
 
 - The PHP package namespace has changed from `Tightenco\Ziggy` to `Tighten\Ziggy` (note: the Composer package name, `tightenco/ziggy`, has not changed).
 - The `makeDirectory` method of the `CommandRouteGenerator` class is now private, overriding it is no longer supported.
-- The deprecated JavaScript `check()` method (e.g. `route().check('dashboard')`) has been removed. Use `has()` instead.
+- The deprecated JavaScript `check()` method (e.g. `route().check('home')`) has been removed. Use `has()` instead.
 - Ziggy's JavaScript now provides named exports only, with no default export. Replace `import route from 'ziggy-js'` with `import { route } from 'ziggy-js'`.
 - Ziggy's Vue plugin and React hook have moved to the root of the module. Replace imports from `ziggy-js/vue` or `ziggy-js/react` with imports directly from `ziggy-js` (e.g. `import { route, ZiggyVue } from 'ziggy-js'`).
 - Ziggy now only includes ES Module builds. The default build, which [supports all modern browsers](https://github.com/developit/microbundle/?tab=readme-ov-file#-modern-mode-), is `./dist/index.js` (this is the default when you import from `ziggy-js` or `vendor/tightenco/ziggy`). A legacy ES Module build using fewer new language features is included too, at `./dist/index.esm.js`. The third build, `./dist/route.umd.js`, is for internal use in Ziggy's `@routes` Blade directive.
@@ -112,7 +112,7 @@ Ziggy `1.0` includes significant improvements and changes, most of which won't r
 
 1. **The `route()` function now returns a literal string if it is passed any arguments.** <span id="route-string"></span>
 
-   If you are chaining methods onto a `route(...)` call _with arguments_, such as `route('posts.show').url()` or `route('dashboard').withQuery(...)`, remove the chained methods. In the case of `route(...).url()` you can just remove `.url()` and nothing will change, for other methods see below.
+   If you are chaining methods onto a `route(...)` call _with arguments_, such as `route('posts.show').url()` or `route('home').withQuery(...)`, remove the chained methods. In the case of `route(...).url()` you can just remove `.url()` and nothing will change, for other methods see below.
 
    Calls specifically to `route()`, with no arguments, are not affected and will still return an instance of the `Router` class, so things like `route().current()` and `route().params` still work as expected.
 

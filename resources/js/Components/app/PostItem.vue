@@ -4,12 +4,10 @@ import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/vue'
 import PostUserHeader from "@/Components/app/PostUserHeader.vue";
 import {router, useForm, usePage} from '@inertiajs/vue3'
 import axiosClient from "@/axiosClient.js";
-import ReadMoreReadLess from "@/Components/app/ReadMoreReadLess.vue";
-import EditDeleteDropdown from "@/Components/app/EditDeleteDropdown.vue";
 import PostAttachments from "@/Components/app/PostAttachments.vue";
-import CommentList from "@/Components/app/CommentList.vue";
+
 import {computed} from "vue";
-import UrlPreview from "@/Components/app/UrlPreview.vue";
+
 import {MapPinIcon} from "@heroicons/vue/24/outline/index.js";
 
 const props = defineProps({
@@ -73,16 +71,12 @@ function sendReaction() {
                                 aria-hidden="true" />
                     pinned
                 </div>
-                <EditDeleteDropdown :user="post.user" :post="post"
-                                    @edit="openEditModal"
-                                    @delete="deletePost"
-                                    @pin="pinUnpinPost"
-                />
+ 
             </div>
         </div>
         <div class="mb-3">
             <ReadMoreReadLess :content="postBody"/>
-            <UrlPreview :preview="post.preview" :url="post.preview_url"/>
+            
         </div>
         <div class="grid gap-3 mb-3" :class="[
             post.attachments.length === 1 ? 'grid-cols-1' : 'grid-cols-2'

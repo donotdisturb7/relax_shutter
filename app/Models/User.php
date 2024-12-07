@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -28,7 +28,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'cover_path',
         'avatar_path',
-        'pinned_post_id'
+        'pinned_post_id',
+        'is_private'
     ];
 
     /**
@@ -49,6 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'is_private' => 'boolean',
     ];
 
     protected $appends = ['avatar_url', 'cover_url'];

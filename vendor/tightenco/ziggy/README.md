@@ -44,7 +44,7 @@ Add the `@routes` Blade directive to your main layout (_before_ your application
 
 ### `route()` function
 
-Ziggy's `route()` function works like [Laravel's `route()` helper](https://laravel.com/docs/10.x/helpers#method-route)—you can pass it the name of a route, and the parameters you want to pass to the route, and it will generate a URL.
+Ziggy's `route()` function works like [Laravel's `route()` helper](https://laravel.com/docs/helpers#method-route)—you can pass it the name of a route, and the parameters you want to pass to the route, and it will generate a URL.
 
 #### Basic usage
 
@@ -186,9 +186,9 @@ route().current('venues.events.show', { venue: 6 });           // false
 #### Check if a route exists: `route().has()`
 
 ```js
-// Laravel app has only one named route, 'dashboard'
+// Laravel app has only one named route, 'home'
 
-route().has('dashboard');   // true
+route().has('home');   // true
 route().has('orders'); // false
 ```
 
@@ -313,7 +313,7 @@ const Ziggy = {
     url: 'https://ziggy.test',
     port: null,
     routes: {
-        dashboard: {
+        home: {
             uri: '/',
             methods: [ 'GET', 'HEAD'],
             domain: null,
@@ -337,7 +337,7 @@ You can import Ziggy like any other JavaScript library. Without the `@routes` Bl
 import { route } from '../../vendor/tightenco/ziggy';
 import { Ziggy } from './ziggy.js';
 
-route('dashboard', undefined, undefined, Ziggy);
+route('home', undefined, undefined, Ziggy);
 ```
 
 To simplify importing the `route()` function, you can create an alias to the vendor path:
@@ -375,7 +375,17 @@ createApp(App).use(ZiggyVue);
 Now you can use the `route()` function anywhere in your Vue components and templates:
 
 ```vue
-<a class="nav-link" :href="route('dashboard')">Dashboard</a>
+<a class="nav-link" :href="route('home')">Home</a>
+```
+
+With `<script setup>` in Vue 3 you can use `inject` to make the `route()` function available in your component script:
+
+```vue
+<script setup>
+import { inject } from 'vue';
+
+const route = inject('route');
+</script>
 ```
 
 If you are not using the `@routes` Blade directive, import Ziggy's configuration too and pass it to `.use()`:
@@ -459,7 +469,7 @@ To set up route filtering, create a config file in your Laravel app at `config/z
 // config/ziggy.php
 
 return [
-    'only' => ['dashboard', 'posts.index', 'posts.show'],
+    'only' => ['home', 'posts.index', 'posts.show'],
 ];
 ```
 

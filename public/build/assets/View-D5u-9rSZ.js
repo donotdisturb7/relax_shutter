@@ -1,1 +1,0 @@
-import{_ as t}from"./AuthenticatedLayout-BzEGcyvx.js";import{f as a,a as e,u as r,F as o,o as s,Z as n}from"./app-CmL_A-M6.js";import"./TextInput-1pPV2daH.js";const f={__name:"View",props:{mustVerifyEmail:{type:Boolean},status:{type:String}},setup(m){return(p,i)=>(s(),a(o,null,[e(r(n),{title:"Profile"}),e(t)],64))}};export{f as default};

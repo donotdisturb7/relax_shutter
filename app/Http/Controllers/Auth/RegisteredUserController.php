@@ -51,7 +51,8 @@ class RegisteredUserController extends Controller
             'avatar_path' => $avatarPath,
         ]);
 
-        event(new Registered($user));
+        // Comment out or remove the Registered event
+        // event(new Registered($user));
 
         Auth::login($user);
 

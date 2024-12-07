@@ -1,6 +1,5 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
-import PrimaryButton from "@/Components/ui/PrimaryButton.vue";
 import { computed } from 'vue';
 
 const props = defineProps({
@@ -19,17 +18,24 @@ const isUserDefined = computed(() => {
 </script>
 
 <template>
-  <div v-if="isUserDefined" class="bg-nal dark:bg-slate-900 dark:text-gray-100 transition-all border-2 border-transparent hover:border-indigo-500">
-    <div class="flex items-center gap-2 py-2 px-2">
-      <Link v-if="user.username" :href="route('profile', user.username)">
-        <img v-if="user.avatar_url" :src="user.avatar_url" class="w-[32px] rounded-full" alt="User avatar"/>
-      </Link>
-      <div class="flex justify-between flex-1">
-        <Link v-if="user.username" :href="route('profile', user.username)">
-          <h3 class="font-black hover:underline">{{ user.name }}</h3>
-        </Link>
+  <div v-if="isUserDefined" class="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+    <img  :src="user.avatar_url" class="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0" alt="User avatar">
+    <div class="text-center space-y-2 sm:text-left">
+      <div class="space-y-0.5">
+        <p class="text-lg text-black font-semibold">
+          {{ user.name }}
+        </p>
+        <p class="text-slate-500 font-medium">
+          @{{ user.username }}
+        </p>
       </div>
+      <Link 
+        v-if="user.username" 
+        :href="route('profile', user.username)" 
+        class="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+      >
+        Profile
+      </Link>
     </div>
   </div>
-
 </template>

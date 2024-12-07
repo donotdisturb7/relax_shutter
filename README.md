@@ -1,66 +1,154 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="https://github.com/donotdisturb7/relax_shutter">
+<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+</a>
 </p>
 
-## About Laravel
+# Relax Shutter 📸
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Relax Shutter is a social media platform dedicated to sharing weekend and travel experiences through photography. It's a space where users can document their adventures, discover new destinations, and connect with fellow travelers.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌟 Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Core Functionality
+- **Photo Sharing**: Share your weekend and travel moments with high-quality image uploads
+- **User Profiles**: Customizable profiles with:
+  - Profile picture
+  - Cover photo
+  - Bio information
+  - Photo gallery
 
-## Learning Laravel
+### Social Features
+- **Follow System**: Connect with other travelers
+- **Feed**: Personalized feed showing posts from followed users
+- **Discover**: Explore photos from the community
+- **Interactions**: 
+  - Like posts
+  - Comment on photos
+  - Share experiences
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### User Experience
+- **Responsive Design**: Fully responsive interface that works on desktop and mobile devices
+- **Real-time Updates**: Instant notifications for likes, comments, and follows
+- **Image Management**: Upload, crop, and edit photos before sharing
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠 Technical Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Frontend
+- Vue.js 3 with Composition API
+- Inertia.js for seamless client-side navigation
+- Tailwind CSS for styling
+- Heroicons for icons
 
-## Laravel Sponsors
+### Backend
+- Laravel 10
+- MySQL database
+- Laravel Sanctum for authentication
+- Laravel Storage for file management
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Getting Started
 
-### Premium Partners
+### Prerequisites
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Installation
 
-## Contributing
+1. Clone the repository
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/donotdisturb7/relax_shutter.git
+cd relax_shutter
+```
 
-## Code of Conduct
+2. Install PHP dependencies
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+```
+
+3. Install NPM packages
+
+```bash
+npm install
+```
+
+4. Configure environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Configure your database in `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=relax_shutter
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+6. Run migrations
+
+```bash
+php artisan migrate
+```
+
+7. Link storage
+
+```bash
+php artisan storage:link
+```
+
+8. Start the development server
+
+```bash
+php artisan serve
+npm run dev
+```
+
+## 📱 Usage
+
+1. Create an account or log in
+2. Set up your profile with a photo and cover image
+3. Start sharing your weekend and travel photos
+4. Follow other users to see their content in your feed
+5. Explore the discover page to find new content
+6. Interact with the community through likes and comments
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## 👥 Authors
+
+- [donotdisturb7](https://github.com/donotdisturb7)
+
+## 🙏 Acknowledgments
+
+- Thanks to all contributors who have helped shape Relax Shutter
+- Special thanks to the Vue.js and Laravel communities for their excellent documentation
+- Inspiration from various travel and photography platforms
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within Relax Shutter, please send an e-mail via [GitHub](https://github.com/donotdisturb7). All security vulnerabilities will be promptly addressed.
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<p align="center">Built with ❤️ using Laravel and Vue.js</p>
