@@ -1,19 +1,36 @@
 [build]
 builder = "nixpacks"
 buildCommand = """
-    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get update && apt-get install -y nodejs nginx php-fpm && \
-    composer install --optimize-autoloader --no-dev && \
-    npm install && \
+    # Update and install system dependencies
+    apt-get update && \
+    apt-get install -y curl gnupg && \
+    
+    # Install Node.js
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    apt-get update && \
+    apt-get install -y nodejs && \
+    
+    # Install PHP extensions
+    apt-get install -y php-fpm php-mysql php-xml php-curl && \
+    
+    # Install Composer dependencies
+    composer install --no-dev --optimize-autoloader && \
+    
+    # Install and build frontend
+    npm ci && \
     npm run build && \
-    php artisan key:generate --force && \
+    
+    # Laravel commands
     php artisan storage:link && \
     php artisan config:clear && \
     php artisan cache:clear && \
+    php artisan view:clear && \
+    php artisan route:clear && \
     php artisan config:cache && \
     php artisan route:cache && \
-    php artisan view:cache && \
-    php artisan migrate --force
+    php artisan view:cache
 """
 
 [deploy]
