@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DiscoverController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HealthController;
 use Inertia\Inertia;
 
 /*
@@ -25,9 +26,10 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('home');
 
-
+Route::get('/health', HealthController::class)->name('health');
 Route::get('/u/{user:username}', [ProfileController::class, 'index'])
     ->name('profile');
+
 
 
 Route::middleware('auth')->group(function () {
@@ -96,8 +98,5 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/health', function () {
-    return response()->json(['status' => 'ok']);
-});
 
 require __DIR__ . '/auth.php';

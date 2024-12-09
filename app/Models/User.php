@@ -27,8 +27,7 @@ class User extends Authenticatable
         'email',
         'password',
         'cover_path',
-        'avatar_path',
-        'is_private'
+        'avatar_path'
     ];
 
     /**
@@ -48,8 +47,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'is_private' => 'boolean',
+        'password' => 'hashed'
     ];
 
     protected $appends = ['avatar_url', 'cover_url'];
