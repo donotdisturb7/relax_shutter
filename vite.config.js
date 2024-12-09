@@ -8,14 +8,14 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
-            publicDirectory: 'public',
-            buildDirectory: 'build'
         }),
         vue({
             template: {
                 transformAssetUrls: {
                     base: null,
                     includeAbsolute: false,
+                    // Configure Vue to handle asset URLs correctly
+                    // for images and other assets within components
                     tags: {
                         img: ['src'],
                         image: ['xlink:href', 'href'],
@@ -35,14 +35,9 @@ export default defineConfig({
         },
     },
     build: {
-        manifest: true,
-        outDir: 'public/build',
         rollupOptions: {
             output: {
-                manualChunks: undefined,
-                assetFileNames: 'assets/[name].[hash][extname]',
-                chunkFileNames: 'js/[name].[hash].js',
-                entryFileNames: 'js/[name].[hash].js',
+                assetFileNames: 'assets/[name].[hash][extname]', // Custom asset filename handling
             },
         },
     },
@@ -56,13 +51,12 @@ export default defineConfig({
             }
         }
     },
-    server: {
-        cors: true,
-        headers: {
-            'Access-Control-Allow-Origin': '*'
-        },
-        hmr: {
-            host: process.env.RAILWAY_PUBLIC_DOMAIN
-        },
-    },
+    // server: {
+    //     https: false,
+    //     host: true,
+    //     port: 3000,
+    //     hmr: {
+    //         host: 'localhost',
+    //     },
+    }
 });
