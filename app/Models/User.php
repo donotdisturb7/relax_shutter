@@ -28,7 +28,6 @@ class User extends Authenticatable
         'password',
         'cover_path',
         'avatar_path',
-        'pinned_post_id',
         'is_private'
     ];
 
