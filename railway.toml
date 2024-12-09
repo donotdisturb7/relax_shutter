@@ -1,31 +1,43 @@
 [build]
 builder = "nixpacks"
-buildCommand = """
-apt-get update && \
-apt-get install -y curl gnupg && \
-mkdir -p /etc/apt/keyrings && \
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-apt-get update && \
-apt-get install -y nodejs php-fpm php-mysql php-xml php-curl && \
-composer install --no-dev --optimize-autoloader && \
-npm ci && \
-npm run build && \
-php artisan storage:link && \
-php artisan view:clear && \
-php artisan route:clear
-"""
+nixpacksConfigPath = "railway.nixpacks.toml"
 
 [deploy]
-startCommand = """
-php artisan config:clear && \
-php artisan cache:clear && \
-php artisan config:cache && \
-php artisan route:cache && \
-php artisan view:cache && \
-php artisan migrate --force && \
-php artisan serve --host=0.0.0.0 --port=$PORT
-"""
-healthcheckPath = "/health"
+startCommand = "php artisan serve --host 0.0.0.0 --port $PORT & npm run build && npm run preview"
+healthcheckPath = "/"
 healthcheckTimeout = 100
-restartPolicyType = "never" 
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+
+[env]
+PHP_VERSION = "8.2"
+NODE_VERSION = "20"
+
+# Frontend build configuration
+[frontend]
+buildCommand = "npm run build"
+outputDirectory = "dist"
+
+# Database configuration (if using MySQL)
+[database]
+service = "mysql"
+version = "8.0"
+
+# Environment variables
+[env.production]
+APP_ENV = "production"
+APP_DEBUG = "false"
+LOG_CHANNEL = "stderr"
+
+# Nginx configuration (optional)
+[services.nginx]
+image = "nginx:latest"
+ports = ["80"]
+volumes = [
+    "./nginx.conf:/etc/nginx/nginx.conf"
+]
+
+# Additional Railway-specific configurations
+[railway]
+projectName = "laravel-vue-project"
+region = "us-west"
