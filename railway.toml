@@ -3,6 +3,9 @@ builder = "nixpacks"
 buildCommand = """
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && apt-get install -y nodejs && \
+    composer require 'php:*' && \
+    composer require 'ext-mbstring:*' && \
+    composer global require "heroku/heroku-buildpack-php" && \
     composer install --optimize-autoloader --no-dev && \
     npm install && \
     npm run build && \
