@@ -96,4 +96,8 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok']);
+});
+
 require __DIR__ . '/auth.php';
