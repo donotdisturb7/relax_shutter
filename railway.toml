@@ -1,43 +1,23 @@
 [build]
 builder = "nixpacks"
-
+buildCommand = """
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get update && apt-get install -y nodejs nginx php-fpm && \
+    composer install --optimize-autoloader --no-dev && \
+    npm install && \
+    npm run build && \
+    php artisan key:generate --force && \
+    php artisan storage:link && \
+    php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache && \
+    php artisan migrate --force
+"""
 
 [deploy]
-startCommand = "php artisan serve --host 0.0.0.0 --port $PORT & npm run build && npm run preview"
-healthcheckPath = "/"
+startCommand = "php artisan serve --host=0.0.0.0 --port=$PORT"
+healthcheckPath = "/health"
 healthcheckTimeout = 100
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 3
-
-[env]
-PHP_VERSION = "8.2"
-NODE_VERSION = "20"
-
-# Frontend build configuration
-[frontend]
-buildCommand = "npm run build"
-outputDirectory = "dist"
-
-# Database configuration (if using MySQL)
-[database]
-service = "mysql"
-version = "8.0"
-
-# Environment variables
-[env.production]
-APP_ENV = "production"
-APP_DEBUG = "false"
-LOG_CHANNEL = "stderr"
-
-# Nginx configuration (optional)
-[services.nginx]
-image = "nginx:latest"
-ports = ["80"]
-volumes = [
-    "./nginx.conf:/etc/nginx/nginx.conf"
-]
-
-# Additional Railway-specific configurations
-[railway]
-projectName = "laravel-vue-project"
-region = "us-west"
+restartPolicyType = "never"
