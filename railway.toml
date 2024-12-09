@@ -19,15 +19,8 @@ php artisan route:clear
 """
 
 [deploy]
-startCommand = """
-php artisan config:clear && \
-php artisan cache:clear && \
-php artisan config:cache && \
-php artisan route:cache && \
-php artisan view:cache && \
-php artisan migrate --force && \
-php artisan serve --host=0.0.0.0 --port=$PORT
-"""
+startCommand = " php artisan config:clear && php artisan cache:clear && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
 healthcheckPath = "/health"
 healthcheckTimeout = 100
-restartPolicyType = "never"
+restartPolicyType = "on_failure"
+
