@@ -1,8 +1,6 @@
 [build]
 builder = "nixpacks"
 buildCommand = """
-    apt-get update && apt-get install -y php-redis && \
-    composer require predis/predis && \
     composer install --optimize-autoloader --no-dev && 
     npm install && 
     npm run build && 

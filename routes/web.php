@@ -97,17 +97,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/health', function () {
-    try {
-        \Illuminate\Support\Facades\Redis::ping();
-        $redis_status = 'ok';
-    } catch (\Exception $e) {
-        $redis_status = 'error: ' . $e->getMessage();
-    }
-    
-    return response()->json([
-        'status' => 'ok',
-        'redis' => $redis_status
-    ]);
+    return response()->json(['status' => 'ok']);
 });
 
 require __DIR__ . '/auth.php';
