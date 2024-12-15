@@ -5,3 +5,4 @@ buildCommand = "npm install && npm run build && composer install --optimize-auto
 [deploy]
 startCommand = "cp .env.example .env && php artisan key:generate --force && php artisan storage:link && php artisan config:clear && php artisan cache:clear && php artisan view:clear && php artisan route:cache && php artisan view:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
 
+
