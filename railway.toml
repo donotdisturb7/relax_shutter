@@ -5,18 +5,3 @@ buildCommand = "npm install && npm run build && composer install --optimize-auto
 [deploy]
 startCommand = "cp .env.example .env && php artisan key:generate --force && php artisan storage:link && php artisan config:clear && php artisan cache:clear && php artisan view:clear && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"
 
-[deploy.envs]
-APP_ENV = "production"
-APP_DEBUG = "false"
-FILESYSTEM_DISK = "public"
-LOG_CHANNEL = "stack"
-BROADCAST_DRIVER = "log"
-CACHE_DRIVER = "file"
-QUEUE_CONNECTION = "database"
-SESSION_DRIVER = "database"
-DB_HOST = "mysql.railway.internal"
-DB_PORT = "3306"
-DB_DATABASE = "railway"
-DB_USERNAME = "root"
-DB_PASSWORD = "SdKcUpHUiCopFQpeZlDjyhgqWsmBzxIC"
-DATABASE_URL = "mysql://root:SdKcUpHUiCopFQpeZlDjyhgqWsmBzxIC@mysql.railway.internal:3306/railway"
