@@ -79,7 +79,7 @@ const refreshPosts = () => {
       <!-- Cover Photo -->
       <div class="relative h-64 w-full rounded-lg  mb-16 bg-primary-black image.png dark:bg-slate-800">
         <img
-          :src="user.cover_path ? `/storage/${user.cover_path}` : '/images/default-cover.png'"
+          :src="user.cover_path ? `/storage/${user.cover_path}` : '/images/default-cover.jpg'"
           class="w-full h-full object-cover"
           alt="Cover photo"
         />
