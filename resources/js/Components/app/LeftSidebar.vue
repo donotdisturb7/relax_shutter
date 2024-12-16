@@ -66,14 +66,15 @@ const handlePostCreated = () => {
 
 <template>
     <!-- Desktop Sidebar -->
-    <div class="hidden lg:block w-64 bg-primary-black h-screen fixed left-0 top-0 flex flex-col border-r border-gray-700">
-        <!-- Space for header -->
-        
-        <div class="h-20"></div>
+    <div class="hidden lg:flex flex-col items-center justify-between w-64 bg-primary-black h-screen fixed left-0 top-0 border-r border-gray-700">
+        <!-- Top Section (e.g., Logo or Header) -->
+        <div class="h-20 flex items-center justify-center w-full">
+            <!-- You can add a logo or header here if needed -->
+        </div>
         
         <!-- Main menu centered -->
-        <div class="flex-1 flex flex-col items-center justify-center ">
-            <nav class="space-y-4 px-4 w-full ">
+        <div class="flex-1 flex flex-col items-center justify-center w-full">
+            <nav class="space-y-4 px-4 w-full">
                 <template v-for="item in menuItems" :key="item.label">
                     <Link 
                         v-if="item.path"
@@ -167,6 +168,20 @@ const handlePostCreated = () => {
     />
 </template>
 
+<style scoped>
+/* Optional: Add any additional responsive styles here */
 
+/* Ensure that the main menu is perfectly centered */
+.flex-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+/* Adjust spacing if necessary */
+.nav-item {
+    /* Example: Add custom spacing or styles */
+}
+</style>
 

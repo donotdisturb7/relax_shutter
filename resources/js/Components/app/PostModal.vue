@@ -238,116 +238,122 @@ function matchLink() {
 </script>
 
 <template>
-    <BaseModal
-        :title="post.id ? 'Modifier le post' : 'Créer un post'"
-        v-model="show"
-        @hide="closeModal"
-    >
-        <div class="p-4">
-            <PostUserHeader
-                :post="post"
-                :show-time="false"
-                class="mb-4"
+  <BaseModal
+    title="Créer un post"
+    v-model="show"
+    @hide="closeModal"
+    class="bg-white "
+  >
+    <div class="p-6">
+      <PostUserHeader
+        :post="post"
+        :show-time="false"
+        class="mb-4"
+      />
+
+
+      <div
+        v-if="formErrors.attachments"
+        class="flex items-center border-l-4 border-red-500 bg-red-100 text-red-800 p-4 rounded mb-4"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        <span>{{ formErrors.attachments }}</span>
+      </div>
+
+      <small class="text-red-500">{{ formErrors.body }}</small>
+
+    
+      <div class="grid gap-4 my-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div v-for="(myFile, ind) of computedAttachments" :key="ind">
+          <div
+            class="group relative aspect-square bg-gray-50 flex flex-col items-center justify-center text-gray-500 border rounded-lg overflow-hidden hover:shadow-md transition-shadow"
+            :class="attachmentErrors[ind] ? 'border-red-500' : 'border-gray-300'"
+          >
+            <div
+              v-if="myFile.deleted"
+              class="absolute inset-x-0 bottom-0 bg-black/70 text-white py-2 px-3 text-sm flex justify-between items-center"
+            >
+              À supprimer
+              <ArrowUturnLeftIcon
+                @click="undoDelete(myFile)"
+                class="w-5 h-5 cursor-pointer hover:text-sky-400"
+              />
+            </div>
+
+            <button
+              @click="removeFile(myFile)"
+              class="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1 hover:bg-black/75 transition-colors"
+            >
+              <XMarkIcon class="h-4 w-4" />
+            </button>
+
+            <img
+              v-if="isImage(myFile.file || myFile)"
+              :src="myFile.url"
+              class="object-contain h-full w-full"
+              :class="myFile.deleted ? 'opacity-50' : 'opacity-100'"
             />
-
-            <!-- Message d'avertissement pour les extensions -->
             <div
-                v-if="showExtensionsText"
-                class="border-l-4 border-amber-500 py-2 px-3 bg-amber-100 mt-3 text-gray-800 rounded"
+              v-else
+              class="flex flex-col justify-center items-center px-3 h-full"
+              :class="myFile.deleted ? 'opacity-50' : 'opacity-100'"
             >
-                Extensions de fichiers autorisées : <br />
-                <small>{{ attachmentExtensions.join(", ") }}</small>
+              <PaperClipIcon class="w-8 h-8 mb-2" />
+              <small class="text-center break-words">{{ (myFile.file || myFile).name }}</small>
             </div>
-
-            <!-- Message d'erreur pour les pièces jointes -->
-            <div
-                v-if="formErrors.attachments"
-                class="border-l-4 border-red-500 py-2 px-3 bg-red-100 mt-3 text-gray-800 rounded"
-            >
-                {{ formErrors.attachments }}
-            </div>
-            <small class="text-red-500">{{ formErrors.body }}</small>
-
-
-            <!-- Zone des pièces jointes -->
-            <div
-                class="grid gap-3 my-3"
-                :class="[
-                    computedAttachments.length === 1
-                        ? 'grid-cols-1'
-                        : 'grid-cols-2',
-                ]"
-            >
-                <div v-for="(myFile, ind) of computedAttachments" :key="ind">
-                    <div
-                        class="group aspect-square bg-gray-50 flex flex-col items-center justify-center text-gray-500 relative border rounded-lg overflow-hidden"
-                        :class="attachmentErrors[ind] ? 'border-red-500' : ''"
-                    >
-                        <div
-                            v-if="myFile.deleted"
-                            class="absolute z-10 left-0 bottom-0 right-0 py-2 px-3 text-sm bg-black/75 text-white flex justify-between items-center"
-                        >
-                            À supprimer
-
-                            <ArrowUturnLeftIcon
-                                @click="undoDelete(myFile)"
-                                class="w-4 h-4 cursor-pointer hover:text-sky-400"
-                            />
-                        </div>
-
-                        <button
-                            @click="removeFile(myFile)"
-                            class="absolute z-20 right-2 top-2 w-7 h-7 flex items-center justify-center bg-black/50 text-white rounded-full hover:bg-black/75 transition-colors"
-                        >
-                            <XMarkIcon class="h-5 w-5" />
-                        </button>
-
-                        <img
-                            v-if="isImage(myFile.file || myFile)"
-                            :src="myFile.url"
-                            class="object-contain aspect-square"
-                            :class="myFile.deleted ? 'opacity-50' : ''"
-                        />
-                        <div
-                            v-else
-                            class="flex flex-col justify-center items-center px-3"
-                            :class="myFile.deleted ? 'opacity-50' : ''"
-                        >
-                            <PaperClipIcon class="w-10 h-10 mb-3" />
-                            <small class="text-center">
-                                {{ (myFile.file || myFile).name }}
-                            </small>
-                        </div>
-                    </div>
-                    <small class="text-red-500">{{ attachmentErrors[ind] }}</small>
-                </div>
-            </div>
-
-            <!-- Zone de dépôt de fichiers -->
-            <label
-                class="relative w-full mb-4 border-2 border-dashed rounded-lg text-center p-4 block hover:border-sky-500 hover:bg-sky-50 transition-colors cursor-pointer"
-                :class="showExtensionsText ? 'border-amber-500' : ''"
-            >
-                <input
-                    class="absolute inset-0 w-full h-full z-10 opacity-0 cursor-pointer"
-                    type="file"
-                    multiple
-                    @change="onAttachmentChoose"
-                />
-                <PaperClipIcon class="h-6 w-6 mx-auto text-gray-400" />
-                <span class="block text-gray-500 mt-2">Ajouter des photos ou fichiers</span>
-            </label>
-
-            <!-- Boutons d'action -->
-            <div class="flex justify-end items-center pt-4">
-                <button
-                    @click="submit"
-                    type="button"
-                    class="bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-4 font-medium transition-colors"
-                >
-                    {{ post.id ? "Mettre à jour" : "Publier" }}
-                </button>
-            </div>
+          </div>
+          <small class="text-red-500">{{ attachmentErrors[ind] }}</small>
         </div>
-    </BaseModal>
+      </div>
+
+      <!-- File Upload Zone -->
+      <label
+        class="relative w-full mb-4 border-2 border-dashed border-gray-300 rounded-lg text-center p-4 flex flex-col items-center justify-center hover:border-sky-500 hover:bg-sky-50 transition-colors cursor-pointer"
+        :class="showExtensionsText ? 'border-yellow-500' : 'border-gray-300'"
+      >
+        <input
+          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          type="file"
+          multiple
+          @change="onAttachmentChoose"
+        />
+        <PaperClipIcon class="h-6 w-6 text-gray-400 mb-2" />
+        <span class="text-gray-500">Ajouter des photos ou fichiers</span>
+      </label>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end space-x-3 pt-4">
+        <button
+          @click="closeModal"
+          type="button"
+          class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+        >
+          Annuler
+        </button>
+        <button
+          @click="submit"
+          type="button"
+          class="px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700 transition-colors"
+        >
+          Publier
+        </button>
+      </div>
+    </div>
+  </BaseModal>
 </template>
+
+<style scoped>
+
+
+@media (max-width: 640px) {
+
+  .p-6 {
+    padding: 1.5rem;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+</style>

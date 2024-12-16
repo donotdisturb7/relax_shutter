@@ -13,10 +13,10 @@ const props = defineProps({
 <template>
     <Head title="Relax Shutter" />
     <AuthenticatedLayout :followings="followings">
-        <div class="flex mt-16 bg-primary-black">
+        <div class="flex flex-col mt-16 bg-primary-black min-h-screen">
             <!-- Main Content -->
-            <div class="flex-1 ml-64 ">
-                <div class="max-w-3xl mx-auto px-4 py-6">
+            <div class="flex-1 mx-4 lg:mx-64">
+                <div class="max-w-3xl mx-auto px-2 py-6">
                     <!-- Posts List -->
                     <div v-if="posts.data.length === 0" class="text-center py-8 text-gray-400">
                         Aucune publication pour le moment
@@ -34,4 +34,15 @@ const props = defineProps({
         </div>
     </AuthenticatedLayout>
 </template>
+
+<style scoped>
+/* Optional: Add any additional responsive styles here */
+
+/* Example: Adjust padding for smaller screens */
+@media (max-width: 640px) {
+    .post-container {
+        padding: 0 1rem;
+    }
+}
+</style>
 
