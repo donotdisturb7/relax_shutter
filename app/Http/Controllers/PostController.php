@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Enums\ReactionEnum;
 use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdateCommentRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostAttachment;
 use App\Models\Reaction;
@@ -16,7 +13,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -27,11 +23,6 @@ class PostController extends Controller
     {
 
         $post->loadCount('reactions');
-        $post->load([
-            'comments' => function ($query) {
-                $query->withCount('reactions'); 
-            },
-        ]);
 
         return inertia('Post/View', [
             'post' => new PostResource($post)
@@ -192,94 +183,8 @@ class PostController extends Controller
         ]);
     }
 
-    public function createComment(Request $request, Post $post)
-    {
-        $data = $request->validate([
-            'comment' => ['required'],
-            'parent_id' => ['nullable', 'exists:comments,id']
-        ]);
-
-        $comment = Comment::create([
-            'post_id' => $post->id,
-            'comment' => nl2br($data['comment']),
-            'user_id' => Auth::id(),
-            'parent_id' => $data['parent_id'] ?: null
-        ]);
-
-        $post = $comment->post;
-        
-
-        return response(new CommentResource($comment), 201);
-    }
-
-    public function deleteComment(Comment $comment)
-    {
-        $post = $comment->post;
-        $id = Auth::id();
-        if ($comment->isOwner($id) || $post->isOwner($id)) {
-
-            $allComments = Comment::getAllChildrenComments($comment);
-            $deletedCommentCount = count($allComments);
-
-            $comment->delete();
-
-      
-
-
-            return response(['deleted' => $deletedCommentCount], 200);
-        }
-
-        return response("You don't have permission to delete this comment.", 403);
-
-
-    }
-
-    public function updateComment(UpdateCommentRequest $request, Comment $comment)
-    {
-        $data = $request->validated();
-
-        $comment->update([
-            'comment' => nl2br($data['comment'])
-        ]);
-
-        return new CommentResource($comment);
-    }
-
-    public function commentReaction(Request $request, Comment $comment)
-    {
-        $data = $request->validate([
-            'reaction' => [Rule::enum(ReactionEnum::class)]
-        ]);
-
-        $userId = Auth::id();
-        $reaction = Reaction::where('user_id', $userId)
-            ->where('object_id', $comment->id)
-            ->where('object_type', Comment::class)
-            ->first();
-
-        if ($reaction) {
-            $hasReaction = false;
-            $reaction->delete();
-        } else {
-            $hasReaction = true;
-            Reaction::create([
-                'object_id' => $comment->id,
-                'object_type' => Comment::class,
-                'user_id' => $userId,
-                'type' => $data['reaction']
-            ]);
-
- 
-        }
-
-        $reactions = Reaction::where('object_id', $comment->id)->where('object_type', Comment::class)->count();
-
-        return response([
-            'num_of_reactions' => $reactions,
-            'current_user_has_reaction' => $hasReaction
-        ]);
-    }
-
+    
+  
 
 
     public function fetchUrlPreview(Request $request)

@@ -73,7 +73,7 @@ const reset = () => {
             @click="$refs.fileInput.click()"
             class="text-blue-500 hover:text-blue-600"
           >
-            parcourez
+          Parcourez
           </button>
         </div>
       </div>

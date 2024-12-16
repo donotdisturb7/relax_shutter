@@ -30,18 +30,7 @@ watch(() => page.props.posts, () => {
     }
 }, {deep: true, immediate: true})
 
-function openEditModal(post) {
-    editPost.value = post;
-    showEditModal.value = true;
-}
 
-function openAttachmentPreviewModal(post, index) {
-    previewAttachmentsPost.value = {
-        post,
-        index
-    }
-    showAttachmentsModal.value = true;
-}
 
 function onModalHide() {
     editPost.value = {
@@ -82,10 +71,6 @@ onMounted(() => {
         <AttachmentPreviewModal :attachments="previewAttachmentsPost.post?.attachments || []"
                                 v-model:index="previewAttachmentsPost.index"
                                 v-model="showAttachmentsModal"/>
-
     </div>
 </template>
 
-<style scoped>
-
-</style>

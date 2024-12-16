@@ -39,5 +39,3 @@ onMounted(() => {
   </AuthenticatedLayout>
 </template>
 
-<style scoped>
-</style>

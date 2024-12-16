@@ -76,6 +76,7 @@ const refreshPosts = () => {
     <Head :title="`${user.name}`" />
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
+      <div class="mt-16"> 
       <!-- Cover Photo -->
       <div class="relative h-64 w-full rounded-lg  mb-16 bg-primary-black image.png dark:bg-slate-800">
         <img
@@ -109,7 +110,7 @@ const refreshPosts = () => {
         <button
           v-if="isOwnProfile"
           @click="openCoverUpload"
-          class="absolute bottom-4 right-4 px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+          class="absolute bottom-4 right-4 px-6 rounded-full  text-white font-bold py-2 "
         >
           Modifier la couverture
         </button>
@@ -131,7 +132,7 @@ const refreshPosts = () => {
 
               <Link
                 :href="route('profile.edit')"
-                class="px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+                class="px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-700 text-white font-bold "
               >
                 Modifier le profil
               </Link>
@@ -182,6 +183,7 @@ const refreshPosts = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Modals -->

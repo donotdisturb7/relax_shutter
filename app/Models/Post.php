@@ -40,15 +40,6 @@ class Post extends Model
         return $this->morphMany(Reaction::class, 'object');
     }
 
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class)->latest();
-    }
-
-    public function latest5Comments(): HasMany
-    {
-        return $this->hasMany(Comment::class)->latest()->limit(5);
-    }
 
     public static function postsForTimeline($userId, $getLatest = true): Builder
     {
@@ -57,13 +48,6 @@ class Post extends Model
             ->with([
                 'user',
                 'attachments',
-                'comments' => function ($query) {
-                    $query->withCount('reactions');
-                },
-                'comments.user',
-                'comments.reactions' => function ($query) use ($userId) {
-                    $query->where('user_id', $userId);
-                },
                 'reactions' => function ($query) use ($userId) {
                     $query->where('user_id', $userId);
                 }

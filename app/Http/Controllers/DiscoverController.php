@@ -11,7 +11,7 @@ class DiscoverController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['user', 'attachments', 'reactions', 'comments'])
+        $posts = Post::with(['user', 'attachments', 'reactions'])
             ->whereHas('user', function ($query) {
                 $query->where('is_private', false)
                     ->where('id', '!=', Auth::id());

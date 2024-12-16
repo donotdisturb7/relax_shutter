@@ -24,12 +24,11 @@ Relax Shutter is a social media platform dedicated to sharing weekend and travel
 - **Discover**: Explore photos from the community
 - **Interactions**: 
   - Like posts
-  - Comment on photos
   - Share experiences
 
 ### User Experience
 - **Responsive Design**: Fully responsive interface that works on desktop and mobile devices
-- **Real-time Updates**: Instant notifications for likes, comments, and follows
+- **Real-time Updates**: Instant notifications for likes and follows
 - **Image Management**: Upload, crop, and edit photos before sharing
 
 ## 🛠 Technical Stack
@@ -119,17 +118,8 @@ npm run dev
 3. Start sharing your weekend and travel photos
 4. Follow other users to see their content in your feed
 5. Explore the discover page to find new content
-6. Interact with the community through likes and comments
+6. Interact with the community through likes
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## 📝 License
 

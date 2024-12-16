@@ -27,19 +27,16 @@ function search() {
 </script>
 
 <template>
- 
 
-       
-
-
-        <div class="flex">
+        <div>
             <Navbar/>
             <LeftSidebar />
 
             
-            <main :class="{ 
-                'flex-1 ml-64 mr-64 pt-20': !isProfileRoute, 
-                'flex-1 ml-64 pt-20': isProfileRoute 
+            <main :class=" { 
+                '': !isProfileRoute, 
+                '': isProfileRoute,
+                
             }">
                 <slot />
             </main>

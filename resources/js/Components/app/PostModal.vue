@@ -11,6 +11,7 @@ import { isImage } from "@/helpers.js";
 import axiosClient from "@/axiosClient.js";
 import BaseModal from "@/Components/app/BaseModal.vue";
 
+
 const props = defineProps({
     post: {
         type: Object,
@@ -265,16 +266,6 @@ function matchLink() {
             >
                 {{ formErrors.attachments }}
             </div>
-
-            <!-- Zone de texte -->
-            <textarea
-                class="w-full px-3 py-2 border rounded-lg resize-none mt-4 focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                :class="formErrors.body ? 'border-red-500' : ''"
-                rows="3"
-                placeholder="Partagez vos pensées..."
-                v-model="form.body"
-                @input="onInputChange"
-            ></textarea>
             <small class="text-red-500">{{ formErrors.body }}</small>
 
 

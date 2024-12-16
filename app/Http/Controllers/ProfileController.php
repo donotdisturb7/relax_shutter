@@ -51,21 +51,7 @@ class ProfileController extends Controller
     }
 
 
-    /**
-     * Met à jour les informations du profil de l'utilisateur.
-     */
-    // public function update(ProfileUpdateRequest $request): RedirectResponse
-    // {
-    //     $request->user()->fill($request->validated());
 
-    //     if ($request->user()->isDirty('email')) {
-    //         $request->user()->email_verified_at = null;
-    //     }
-
-    //     $request->user()->save();
-
-    //     return to_route('profile', $request->user())->with('success', 'Les détails de votre profil ont été mis à jour.');
-    // }
 
     /**
      * Supprime le compte de l'utilisateur.

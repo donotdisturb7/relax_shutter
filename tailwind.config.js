@@ -17,7 +17,14 @@ export default {
                 slab: ['Bespoke Slab', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'primary-black': '#111111',
+                'primary-black': '#000000',
+                'text': '#f3edf2',
+                'primary-pink': '#FF8F83',
+                'secondary-pink': '#E0E0E0',
+               
+     
+
+                
             },
         },
     },

@@ -8,7 +8,7 @@ const props = defineProps({
     },
     size: {
         type: String,
-        default: 'md' // sm, md, lg
+        default: 'lg' // sm, md, lg
     }
 });
 
