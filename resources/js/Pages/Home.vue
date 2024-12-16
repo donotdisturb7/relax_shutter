@@ -36,9 +36,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-/* Optional: Add any additional responsive styles here */
 
-/* Example: Adjust padding for smaller screens */
 @media (max-width: 640px) {
     .post-container {
         padding: 0 1rem;
