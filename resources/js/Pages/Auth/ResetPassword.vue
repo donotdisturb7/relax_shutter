@@ -88,7 +88,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Reset Password
+                    Réinitialiser le mot de passe
                 </PrimaryButton>
             </div>
         </form>

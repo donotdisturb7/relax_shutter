@@ -138,7 +138,7 @@ class PostController extends Controller
             return back();
         }
 
-        return response("You don't have permission to delete this post", 403);
+        return response("Vous n'avez pas les permissions nécessaires pour supprimer ce post", 403);
     }
 
     public function downloadAttachment(PostAttachment $attachment)

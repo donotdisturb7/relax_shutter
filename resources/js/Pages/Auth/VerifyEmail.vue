@@ -32,7 +32,7 @@ const verificationLinkSent = computed(
                 fill="currentColor"
                 preserveAspectRatio="none slice"
             >
-                <!-- <path d="M50 0H100L50 100H0L50 0Z"></path> -->
+            
             </svg>
             <!-- Modifié ici pour masquer l'image sur les petits écrans -->
             <img

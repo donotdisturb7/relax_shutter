@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'avatar_path' => $this->avatar_path,
             'cover_path' => $this->cover_path,
             'created_at' => $this->created_at,
-            // ... autres champs
+           
         ];
     }
 }
